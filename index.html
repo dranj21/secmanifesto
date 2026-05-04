@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>Divyan for Secretary 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #090909;
+    --off-black: #111111;
+    --card-bg: #161616;
+    --border: rgba(255,255,255,0.08);
+    --yellow: #F5C518;
+    --yellow-dim: rgba(245,197,24,0.12);
+    --yellow-glow: rgba(245,197,24,0.25);
+    --text: #F0EDE6;
+    --muted: rgba(240,237,230,0.45);
+    --accent-stroke: rgba(245,197,24,0.4);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 3rem;
+    background: rgba(9,9,9,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    min-width: 0;
+  }
+
+  .nav-logo img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid rgba(245,197,24,0.5);
+    box-shadow: 0 0 12px rgba(245,197,24,0.18);
+    flex-shrink: 0;
+  }
+
+  .nav-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    color: var(--yellow);
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    gap: 4rem;
+    overflow: hidden;
+  }
+
+  .hero-bg-ring {
+    position: absolute;
+    top: 50%; left: 55%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-stroke);
+    pointer-events: none;
+    animation: pulse-ring 4s ease-in-out infinite;
+  }
+
+  .hero-bg-ring:nth-child(2) {
+    width: 520px; height: 520px;
+    border-color: rgba(245,197,24,0.15);
+    animation-delay: -1.5s;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.04); }
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 2;
+    animation: fade-up 0.9s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(32px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--yellow-dim);
+    border: 1px solid var(--accent-stroke);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+    animation: fade-up 0.9s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .hero-tag-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--yellow);
+    animation: blink 1.8s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+    animation: fade-up 0.9s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .hero-name span { color: var(--yellow); }
+
+  .hero-role {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    animation: fade-up 0.9s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .hero-proposed {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    animation: fade-up 0.9s 0.25s cubic-bezier(0.22,1,0.36,1) both;
+    flex-wrap: wrap;
+  }
+
+  .hero-proposed-item {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .hero-proposed-item strong {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--yellow);
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    animation: fade-up 0.9s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .hero-cta:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(245,197,24,0.3);
+  }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fade-up 0.9s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .photo-frame {
+    position: relative;
+    width: min(100%, 360px);
+    aspect-ratio: 4 / 5;
+  }
+
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--yellow) 0%, transparent 50%, var(--yellow) 100%);
+    z-index: -1;
+    opacity: 0.6;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(10%);
+  }
+
+  .photo-badge {
+    position: absolute;
+    bottom: -16px;
+    left: -20px;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  section {
+    padding: 6rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--yellow);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--yellow);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 3.5rem;
+    font-weight: 300;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .pillar-card {
+    background: var(--card-bg);
+    padding: 2.5rem 2rem;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  .pillar-card:hover { background: #1e1e1e; }
+
+  .pillar-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(245,197,24,0.12);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: color 0.25s;
+  }
+
+  .pillar-card:hover .pillar-number { color: rgba(245,197,24,0.25); }
+
+  .pillar-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+  }
+
+  .pillar-tagline {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .pillar-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .pillar-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .pillar-item-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background: var(--yellow-dim);
+    border: 1px solid var(--accent-stroke);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .pillar-item-icon svg {
+    width: 12px; height: 12px;
+    fill: var(--yellow);
+  }
+
+  .pillar-item-content h4 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .pillar-item-content p {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .tools-section {
+    background: var(--off-black);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 3rem;
+  }
+
+  .tools-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tool-chip {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .tool-chip:hover {
+    border-color: var(--accent-stroke);
+    background: var(--yellow-dim);
+    transform: translateY(-3px);
+  }
+
+  .tool-chip-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .tool-chip-use {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 900px;
+  }
+
+  .exp-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem 1.8rem;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--yellow);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .exp-card:hover {
+    border-color: var(--accent-stroke);
+    transform: translateY(-2px);
+  }
+
+  .exp-card:hover::before { opacity: 1; }
+
+  .exp-role {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--yellow);
+    margin-bottom: 3px;
+  }
+
+  .exp-org {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .exp-detail {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  .vote-banner {
+    position: relative;
+    padding: 6rem 3rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .vote-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(245,197,24,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .vote-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    background: linear-gradient(to bottom, #F5C518 30%, rgba(245,197,24,0.2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+  }
+
+  .vote-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--off-black);
+  }
+
+  .footer-left {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: var(--yellow);
+  }
+
+  .footer-right {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-align: right;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 1100px) {
+    .hero {
+      grid-template-columns: 1fr 0.9fr;
+      gap: 3rem;
+    }
+
+    .pillars-grid,
+    .exp-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tools-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    nav {
+      padding: 0.9rem 1rem;
+    }
+
+    .nav-name {
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding: 6.9rem 1rem 2.25rem;
+      gap: 1.6rem;
+    }
+
+    .hero-bg-ring {
+      left: 50%;
+      width: 520px;
+      height: 520px;
+      opacity: 0.5;
+    }
+
+    .hero-bg-ring:nth-child(2) {
+      width: 360px;
+      height: 360px;
+    }
+
+    .hero-left {
+      text-align: center;
+    }
+
+    .hero-tag {
+      font-size: 0.68rem;
+      padding: 6px 12px;
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 15vw, 4.8rem);
+    }
+
+    .hero-role {
+      font-size: clamp(1rem, 5vw, 1.5rem);
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-proposed {
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-cta {
+      padding: 13px 22px;
+      width: 100%;
+      max-width: 320px;
+      justify-content: center;
+    }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.25rem;
+    }
+
+    .photo-frame {
+      width: min(78vw, 290px);
+      aspect-ratio: 4 / 5;
+    }
+
+    .photo-badge {
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -14px;
+      font-size: 0.8rem;
+      padding: 8px 14px;
+      white-space: nowrap;
+    }
+
+    section {
+      padding: 3.6rem 1rem;
+    }
+
+    .section-subtitle {
+      max-width: none;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .pillars-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pillar-card {
+      padding: 2rem 1.1rem;
+    }
+
+    .pillar-number {
+      font-size: 3.5rem;
+    }
+
+    .tools-section {
+      padding: 3rem 1rem;
+    }
+
+    .tools-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tool-chip {
+      padding: 1rem 1.1rem;
+    }
+
+    .exp-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .exp-card {
+      padding: 1.25rem 1.1rem;
+    }
+
+    .vote-banner {
+      padding: 4.5rem 1rem;
+    }
+
+    .vote-sub {
+      font-size: 1rem;
+      max-width: none;
+    }
+
+    footer {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .footer-right {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .nav-logo img {
+      width: 38px;
+      height: 38px;
+    }
+
+    .nav-name {
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero {
+      padding-top: 6.6rem;
+    }
+
+    .hero-tag {
+      letter-spacing: 0.08em;
+    }
+
+    .hero-proposed {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-proposed-item {
+      text-align: center;
+    }
+
+    .pillar-item {
+      gap: 10px;
+    }
+
+    .pillar-item-content h4 {
+      font-size: 0.82rem;
+    }
+
+    .pillar-item-content p {
+      font-size: 0.76rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#top" aria-label="Divyan for Secretary">
+    <!-- LOGO LINK HERE -->
+    <img src="https://www.cambridgesu.co.uk/asset/Organisation/10201/Picture2-min(1).png?thumbnail_width=420&thumbnail_height=420&resize_type=CropToFit" alt="TSoc Logo" loading="eager" decoding="async">
+    <span class="nav-name">Divyan for Secretary</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#pillars">Manifesto</a></li>
+    <li><a href="#tools">How</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#vote">Vote</a></li>
+  </ul>
+</nav>
+
+<div class="hero" id="top">
+  <div class="hero-bg-ring"></div>
+  <div class="hero-bg-ring"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      Cambridge University Tamil Society · Secretary 2026
+    </div>
+
+    <h1 class="hero-name">DIVYAN<br><span>RANJITHAKUMAR</span></h1>
+    <p class="hero-role">Running for Secretary</p>
+
+    <div class="hero-proposed">
+      <div class="hero-proposed-item">
+        <strong>Proposed by</strong>
+        Pahalavan
+      </div>
+      <div class="hero-proposed-item">
+        <strong>Seconded by</strong>
+        Lithikga
+      </div>
+    </div>
+
+    <a class="hero-cta" href="#pillars">
+      See the Vision
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M7 0L5.59 1.41L10.17 6H0v2h10.17l-4.58 4.59L7 14l7-7-7-7z"/></svg>
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-frame">
+      <!-- PHOTO LINK HERE -->
+      <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_GpTpywqC8xruRRqQAWH9UtnXGc61ZXgjXJO3i_P0jWfDTXCWz37XGv25Cg8dFybJVngGAgbYd76In1S0hcnVknbSaI9ZjZz-UmWN24kF0G5weI4oubyIB-rXHQA6fXrz-QZuLJgm_rnbL5Zhs7E43HnCYTS-ASrnCpDgrrHqD2ZbrwXxvQgUZQKbnHUDlxzG5NMM8XxY1at_HvEQqBzYrD4RyX5jBhp8h7jaJbZqOiFf2a9IBRRBV1_thjCQbPHUu-LGrQLK5__ITtE5Bptpt-9UTvO5fj4oB7mle0NDL396zzIRCORLmqYZPFya2tkIqi8Z0ZY0MffOvSMxBT63M4KgnmdqwxAF1ZIZluay7AlAsTr2H37PgGRbPccxpHGH3ecf2hAEcjdaP2rg2eGdaUTMtsh5otFcTDcrD__8mF_zTRMJ5mfeK9KNyw06vWd_9zbLxl7q6d6xLIDl9_cAYSbfaWSdwDRMqC97XsQ6AqTQI61vPeSuGWdAL-RZ1CiAqdKN1shkYacEYwoZR4ph7kFjP5oqdxVoAjtgCJ1SsUa61KoKw2ZGmcgeCHOwvf9DtUZzY6dkw583M-2dgfrqGd4vpNqi8xVto0T_3Foj6v-0wk4CM-lCJ8MHXF8aal1E1kDHtcXIoyyKbys27_OPI1A6le6nb-Bltl7IDQ602i78td6pS3f_TAgVoo2aLDkPGGriWuzS1gRNJ30Cuu4d_Mc6XflPpUaleLB3zGtq_076Q6sVaxyPiHaSP3a7qD19IFa62QIEIojFWbzJVgxqmSb0cmTUML6KKslqGsm6-UZqg92tdoDKpHw55TV124MKuaXZBI_lI-tRX--73xEQW6v8Bud0II71MyKQ9gDCTIWzCiLM7Z-GGDiZPDEOk8xDTU5G6AV3vS01KZ7AkL5lqcz3nEuZXwKkXrAG7rZurkrQoewKTSK5oGxpKiU-wgz2W7TE4ywHD1RuiM-0dUotSQFZrTsgBA2unFH87TEgvU13wIzdInzFhpmdM9rtxfFmmP9OMnFrsFr04yYy2sWa1sCEzjYScjx_YgKLvPKwUNqGTKH90SM9lEwOB-XWEskLeNpJzPhsBtE1wBa_B1p1TG8hJht9vSq_Q_0_TouqwUFVt02z1ZTJFw0lSgZe9wypdPsYufnDZ1hU_ASeNJjcLNq3DOAz5Q7i49gTzy6t2tCSWA_SHO-0QelbCklu8Q68mscAfIfCs=w1852-h913?auditContext=prefetch" alt="Divyan Ranjithakumar" loading="eager" decoding="async">
+      <div class="photo-badge">Secretary Candidate</div>
+    </div>
+  </div>
+</div>
+
+<section id="pillars">
+  <div class="section-label">Manifesto</div>
+  <h2 class="section-title">Three Pillars</h2>
+  <p class="section-subtitle">A focused agenda built on professionalisation, meaningful events, and long-term community continuity.</p>
+
+  <div class="pillars-grid reveal">
+    <div class="pillar-card">
+      <div class="pillar-number">01</div>
+      <div class="pillar-title">Professionalise</div>
+      <p class="pillar-tagline">Transform TSoc into a professionally run society with clearer systems, stronger accountability, and continuity beyond each committee.</p>
+      <ul class="pillar-items">
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M2 2h10v10H2z" opacity=".3"/><path d="M1 1h5v5H1zm7 0h5v5h-5zm-7 7h5v5H1zm7 0h5v5h-5z"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>New TSoc Website</h4>
+            <p>I will build a central TSoc platform for memberships, event tickets, announcements, and useful society information, so members are not relying on scattered messages across different chats.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" opacity=".3"/><path d="M7 4v3l2 2-1 1-2.5-2.5V4h1.5z"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Seamless Digital Payments</h4>
+            <p>Use Stripe or Ticket Tailor for tickets and payments, making transactions faster, traceable, and easier to manage while reducing admin pressure on the committee.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="1" y="4" width="12" height="7" rx="1" opacity=".3"/><path d="M4 4V3a3 3 0 016 0v1"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Slack for Committee Comms</h4>
+            <p>Move committee communication onto Slack with dedicated channels for publicity, events, sponsorships, and handover — so discussions are organised and searchable.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M1 3h12M1 7h9M1 11h6" stroke-width="1.5" stroke="currentColor" fill="none"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Notion for Documentation</h4>
+            <p>Create a permanent Notion workspace for event templates, contacts, handover notes, and onboarding guides, so every committee inherits a proper system rather than restarting from scratch.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-number">02</div>
+      <div class="pillar-title">CPD & Events</div>
+      <p class="pillar-tagline">Shift TSoc toward events with real value — intellectual, professional, and cultural.</p>
+      <ul class="pillar-items">
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="4" r="2.5" opacity=".3"/><path d="M2 12c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>CPD & Networking Sessions</h4>
+            <p>Run termly sessions with Tamil professionals in law, finance, tech, and other fields, with targeted outreach to alumni and external contacts to make the events genuinely useful.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Intellectual Heritage Events</h4>
+            <p>Host discussions on Tamil history and contemporary issues with proper framing and pre-circulated context, creating space for thoughtful and informed conversation.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z" opacity=".3"/><path d="M4 13h6M7 9v4"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Purpose-Driven Charity</h4>
+            <p>Every charity event will explain where the money is going and why it matters, with post-event updates so members can see the direct impact of what they supported.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1" opacity=".3"/><path d="M5 7h4M7 5v4"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Retention-Focused Events</h4>
+            <p>Plan events for more than just freshers — formal dinners, collaborative socials, and networking events designed to keep older members involved throughout the year.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-number">03</div>
+      <div class="pillar-title">Community & Continuity</div>
+      <p class="pillar-tagline">Build a Tamil community that lasts beyond Cambridge and remains connected over time.</p>
+      <ul class="pillar-items">
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="2" y="6" width="10" height="6" rx="1" opacity=".3"/><path d="M5 6V4a2 2 0 014 0v2"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Alumni Directory</h4>
+            <p>Set up a searchable alumni database to support mentoring, referrals, and long-term engagement with TSoc after graduation.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Sponsorship Strategy</h4>
+            <p>Build a proper sponsorship pipeline targeting Tamil-owned businesses and relevant brands, with clear value propositions for event exposure, branding, and partnership opportunities.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="4" cy="7" r="2" opacity=".3"/><circle cx="10" cy="7" r="2" opacity=".3"/><path d="M6 7h2"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>UK-Wide Collaborations</h4>
+            <p>Work with Tamil societies across the UK to scale joint events and position Cambridge TSoc as part of a wider student network.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="9" rx="1" opacity=".3"/><path d="M4 12h6M7 11v1"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>Monthly Newsletter</h4>
+            <p>Launch a professional monthly email brief with society updates, Tamil current affairs, and short cultural or language features to keep members engaged year-round.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="tools-section" id="tools">
+  <div class="tools-title">The Toolkit — How It Gets Done</div>
+  <div class="tools-grid reveal">
+    <div class="tool-chip">
+      <div class="tool-chip-name">Slack</div>
+      <div class="tool-chip-use">Committee channels & project threads</div>
+    </div>
+    <div class="tool-chip">
+      <div class="tool-chip-name">Notion</div>
+      <div class="tool-chip-use">Documentation & onboarding wikis</div>
+    </div>
+    <div class="tool-chip">
+      <div class="tool-chip-name">Stripe / Ticket Tailor</div>
+      <div class="tool-chip-use">Digital payments & event ticketing</div>
+    </div>
+    <div class="tool-chip">
+      <div class="tool-chip-name">Webflow / Framer</div>
+      <div class="tool-chip-use">TSoc website & member portal</div>
+    </div>
+    <div class="tool-chip">
+      <div class="tool-chip-name">Mailchimp</div>
+      <div class="tool-chip-use">Professional newsletter delivery</div>
+    </div>
+    <div class="tool-chip">
+      <div class="tool-chip-name">Google Drive</div>
+      <div class="tool-chip-use">Shared committee resources</div>
+    </div>
+    <div class="tool-chip">
+      <div class="tool-chip-name">Airtable</div>
+      <div class="tool-chip-use">Alumni directory & sponsorship CRM</div>
+    </div>
+    <div class="tool-chip">
+      <div class="tool-chip-name">Instagram / LinkedIn</div>
+      <div class="tool-chip-use">Public-facing comms & networking</div>
+    </div>
+  </div>
+</div>
+
+<section id="experience">
+  <div class="section-label">Why Me</div>
+  <h2 class="section-title">The Experience</h2>
+  <p class="section-subtitle">A track record of building, growing, and professionalising student organisations from the ground up.</p>
+
+  <div class="exp-grid reveal">
+    <div class="exp-card">
+      <div class="exp-role">Publicity Officer</div>
+      <div class="exp-org">Union of Clare Students (UCS)</div>
+      <div class="exp-detail">Currently serving on the UCS committee, managing communications, campaigns, and public-facing content for one of Cambridge's most active college unions.</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-role">Treasurer</div>
+      <div class="exp-org">Cambridge Telugu Society</div>
+      <div class="exp-detail">Handled financial oversight and budgeting for a growing cultural society — directly relevant to sponsorship tracking, payments, and transparent administration.</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-role">Former President & Social Media Officer</div>
+      <div class="exp-org">HRSFC South Asian Society</div>
+      <div class="exp-detail">Grew the society to over 150 registered members and achieved the highest event turnout and retention rate of any committee in the institution's history.</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-role">Former Secretary & Publicity Officer</div>
+      <div class="exp-org">HRSFC Hindu, Sikh & Jain Society</div>
+      <div class="exp-detail">Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division, navigating affiliation and institutional partnership processes.</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-role">Head Student</div>
+      <div class="exp-org">Old Buckenham High School</div>
+      <div class="exp-detail">Elected to represent the student body, developing leadership, organisation, and pastoral experience from an early stage.</div>
+    </div>
+  </div>
+</section>
+
+<div class="vote-banner" id="vote">
+  <div class="vote-big">VOTE<br>DIVYAN</div>
+  <p class="vote-sub">For a more professional, purposeful, and permanent Cambridge University Tamil Society.</p>
+  <div style="font-size:0.8rem; color: var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Cambridge University Tamil Society · Committee Elections 2026</div>
+</div>
+
+<footer>
+  <div class="footer-left">Divyan Ranjithakumar · For Secretary 2026</div>
+  <div class="footer-right">Proposed by Pahalavan · Seconded by Lithikga</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.pillar-card').forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = `opacity 0.6s ${i * 0.1}s cubic-bezier(0.22,1,0.36,1), transform 0.6s ${i * 0.1}s cubic-bezier(0.22,1,0.36,1)`;
+  });
+
+  const pillarObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.pillar-card').forEach(card => {
+          card.style.opacity = '1';
+          card.style.transform = 'none';
+        });
+        pillarObs.disconnect();
+      }
+    });
+  }, { threshold: 0.05 });
+
+  const grid = document.querySelector('.pillars-grid');
+  if (grid) pillarObs.observe(grid);
+</script>
+</body>
+</html>
