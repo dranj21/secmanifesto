@@ -15,14 +15,15 @@
     --card-bg: #161616;
     --border: rgba(255,255,255,0.08);
     --yellow: #F5C518;
-    --yellow-dim: rgba(245,197,24,0.12);
-    --yellow-glow: rgba(245,197,24,0.25);
+    --yellow-dim: rgba(245,197,24,0.10);
+    --yellow-glow: rgba(245,197,24,0.22);
     --text: #F0EDE6;
     --muted: rgba(240,237,230,0.45);
-    --accent-stroke: rgba(245,197,24,0.4);
+    --accent-stroke: rgba(245,197,24,0.35);
   }
 
   html { scroll-behavior: smooth; }
+
   body {
     background: var(--black);
     color: var(--text);
@@ -32,7 +33,32 @@
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    cursor: none;
   }
+
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--yellow);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s, width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(245,197,24,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), width 0.25s, height 0.25s, opacity 0.2s;
+  }
+  body:hover .cursor { opacity: 1; }
+  a:hover ~ .cursor, button:hover ~ .cursor { width: 16px; height: 16px; }
 
   body::before {
     content: '';
@@ -53,9 +79,15 @@
     justify-content: space-between;
     gap: 1rem;
     padding: 1rem 3rem;
-    background: rgba(9,9,9,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(9,9,9,0);
+    backdrop-filter: blur(0px);
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(9,9,9,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--border);
   }
 
   .nav-logo {
@@ -65,16 +97,16 @@
     text-decoration: none;
     min-width: 0;
   }
-
   .nav-logo img {
-    width: 42px;
-    height: 42px;
+    width: 42px; height: 42px;
     border-radius: 50%;
     object-fit: cover;
     border: 1.5px solid rgba(245,197,24,0.5);
     box-shadow: 0 0 12px rgba(245,197,24,0.18);
     flex-shrink: 0;
+    transition: box-shadow 0.3s;
   }
+  .nav-logo:hover img { box-shadow: 0 0 22px rgba(245,197,24,0.4); }
 
   .nav-name {
     font-family: 'Bebas Neue', sans-serif;
@@ -91,7 +123,6 @@
     flex-wrap: wrap;
     justify-content: flex-end;
   }
-
   .nav-links a {
     color: var(--muted);
     text-decoration: none;
@@ -100,8 +131,18 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--yellow);
+    transition: width 0.25s cubic-bezier(0.22,1,0.36,1);
   }
   .nav-links a:hover { color: var(--yellow); }
+  .nav-links a:hover::after { width: 100%; }
 
   .hero {
     position: relative;
@@ -114,6 +155,22 @@
     overflow: hidden;
   }
 
+  .hero-orb {
+    position: absolute;
+    top: 40%; left: 58%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,197,24,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    animation: orb-drift 8s ease-in-out infinite;
+  }
+  @keyframes orb-drift {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+    33% { transform: translate(-46%, -54%) scale(1.1); opacity: 1; }
+    66% { transform: translate(-54%, -46%) scale(0.95); opacity: 0.6; }
+  }
+
   .hero-bg-ring {
     position: absolute;
     top: 50%; left: 55%;
@@ -124,27 +181,19 @@
     pointer-events: none;
     animation: pulse-ring 4s ease-in-out infinite;
   }
-
-  .hero-bg-ring:nth-child(2) {
+  .hero-bg-ring:nth-child(3) {
     width: 520px; height: 520px;
-    border-color: rgba(245,197,24,0.15);
+    border-color: rgba(245,197,24,0.12);
     animation-delay: -1.5s;
   }
-
   @keyframes pulse-ring {
-    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.04); }
+    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.04); }
   }
 
   .hero-left {
     position: relative;
     z-index: 2;
-    animation: fade-up 0.9s cubic-bezier(0.22,1,0.36,1) both;
-  }
-
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(32px); }
-    to { opacity: 1; transform: translateY(0); }
   }
 
   .hero-tag {
@@ -161,19 +210,22 @@
     text-transform: uppercase;
     color: var(--yellow);
     margin-bottom: 1.5rem;
-    animation: fade-up 0.9s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+    opacity: 0;
+    animation: fade-up 0.9s 0.1s cubic-bezier(0.22,1,0.36,1) forwards;
   }
-
   .hero-tag-dot {
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--yellow);
     animation: blink 1.8s ease-in-out infinite;
   }
-
   @keyframes blink {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
+    50% { opacity: 0.15; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .hero-name {
@@ -181,12 +233,21 @@
     font-size: clamp(3.5rem, 7vw, 6rem);
     line-height: 0.92;
     letter-spacing: 0.02em;
-    color: var(--text);
     margin-bottom: 0.3rem;
-    animation: fade-up 0.9s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+    overflow: hidden;
   }
-
-  .hero-name span { color: var(--yellow); }
+  .hero-name .word {
+    display: block;
+    overflow: hidden;
+  }
+  .hero-name .word span {
+    display: inline-block;
+    color: var(--text);
+    opacity: 0;
+    transform: translateY(100%);
+    animation: letter-rise 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .hero-name .word.accent span { color: var(--yellow); }
 
   .hero-role {
     font-family: 'Bebas Neue', sans-serif;
@@ -194,23 +255,23 @@
     letter-spacing: 0.12em;
     color: var(--muted);
     margin-bottom: 2rem;
-    animation: fade-up 0.9s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+    opacity: 0;
+    animation: fade-up 0.9s 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
   }
 
   .hero-proposed {
     display: flex;
     gap: 1.5rem;
     margin-bottom: 2.5rem;
-    animation: fade-up 0.9s 0.25s cubic-bezier(0.22,1,0.36,1) both;
     flex-wrap: wrap;
+    opacity: 0;
+    animation: fade-up 0.9s 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
   }
-
   .hero-proposed-item {
     font-size: 0.78rem;
     color: var(--muted);
     letter-spacing: 0.06em;
   }
-
   .hero-proposed-item strong {
     display: block;
     font-size: 0.7rem;
@@ -233,14 +294,39 @@
     font-size: 0.9rem;
     text-decoration: none;
     letter-spacing: 0.04em;
-    transition: all 0.2s;
-    animation: fade-up 0.9s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+    transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+    opacity: 0;
+    animation: fade-up 0.9s 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background 0.25s;
+  }
+  .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(245,197,24,0.35); }
+  .hero-cta:hover::before { background: rgba(255,255,255,0.12); }
+  .hero-cta svg { transition: transform 0.25s cubic-bezier(0.22,1,0.36,1); }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  @keyframes letter-rise {
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  .hero-cta:hover {
-    background: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(245,197,24,0.3);
+  .hero-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245,197,24,0.55), transparent);
+    margin: 1.25rem 0 1rem;
+    opacity: 0;
+    animation: fade-up 0.9s 0.82s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .hero-divider--photo {
+    max-width: 360px;
+    margin: 1.05rem auto 1rem;
   }
 
   .hero-right {
@@ -249,15 +335,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: fade-up 0.9s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+    opacity: 0;
+    animation: fade-up 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+
+  .hero-right-inner {
+    width: 100%;
+    max-width: 360px;
   }
 
   .photo-frame {
     position: relative;
     width: min(100%, 360px);
     aspect-ratio: 4 / 5;
+    margin: 0 auto;
   }
-
   .photo-frame::before {
     content: '';
     position: absolute;
@@ -265,9 +357,13 @@
     border-radius: 14px;
     background: linear-gradient(135deg, var(--yellow) 0%, transparent 50%, var(--yellow) 100%);
     z-index: -1;
-    opacity: 0.6;
+    opacity: 0.55;
+    animation: border-pulse 3s ease-in-out infinite;
   }
-
+  @keyframes border-pulse {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 0.85; }
+  }
   .photo-frame img {
     width: 100%;
     height: 100%;
@@ -276,12 +372,13 @@
     object-fit: cover;
     object-position: center top;
     filter: grayscale(10%);
+    transition: filter 0.4s;
   }
+  .photo-frame:hover img { filter: grayscale(0%); }
 
   .photo-badge {
     position: absolute;
-    bottom: -16px;
-    left: -20px;
+    bottom: -16px; left: -20px;
     background: var(--yellow);
     color: var(--black);
     padding: 10px 16px;
@@ -290,14 +387,49 @@
     font-size: 0.9rem;
     letter-spacing: 0.08em;
     box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    animation: badge-float 3s ease-in-out infinite;
+  }
+  @keyframes badge-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
   }
 
-  section {
-    padding: 6rem 3rem;
-    position: relative;
-    z-index: 1;
+  .hero-about {
+    margin-top: 1rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+    border-top: 1px solid rgba(245,197,24,0.18);
+    border-bottom: 1px solid rgba(245,197,24,0.18);
+    border-radius: 14px;
+    padding: 1rem 1.05rem;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: fade-up 0.9s 0.86s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .hero-about-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.12em;
+    color: var(--yellow);
+    margin-bottom: 0.45rem;
+  }
+  .hero-about-label::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: rgba(245,197,24,0.7);
+  }
+  .hero-about p {
+    color: rgba(240,237,230,0.78);
+    font-size: 0.94rem;
+    line-height: 1.7;
+    font-weight: 300;
   }
 
+  section { padding: 6rem 3rem; position: relative; z-index: 1; }
   .section-label {
     display: inline-flex;
     align-items: center;
@@ -309,13 +441,11 @@
     color: var(--yellow);
     margin-bottom: 0.8rem;
   }
-
   .section-label::before {
     content: '';
     width: 24px; height: 1px;
     background: var(--yellow);
   }
-
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -323,7 +453,6 @@
     line-height: 1;
     margin-bottom: 1rem;
   }
-
   .section-subtitle {
     color: var(--muted);
     font-size: 1rem;
@@ -342,27 +471,35 @@
     border-radius: 12px;
     overflow: hidden;
   }
-
   .pillar-card {
     background: var(--card-bg);
     padding: 2.5rem 2rem;
-    transition: background 0.25s;
+    transition: background 0.3s;
     cursor: default;
+    position: relative;
+    overflow: hidden;
   }
-
-  .pillar-card:hover { background: #1e1e1e; }
-
+  .pillar-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  }
+  .pillar-card:hover { background: #1b1b1b; }
+  .pillar-card:hover::after { transform: scaleX(1); }
   .pillar-number {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 4rem;
-    color: rgba(245,197,24,0.12);
+    color: rgba(245,197,24,0.1);
     line-height: 1;
     margin-bottom: 0.5rem;
-    transition: color 0.25s;
+    transition: color 0.3s;
   }
-
-  .pillar-card:hover .pillar-number { color: rgba(245,197,24,0.25); }
-
+  .pillar-card:hover .pillar-number { color: rgba(245,197,24,0.22); }
   .pillar-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.6rem;
@@ -370,7 +507,6 @@
     color: var(--yellow);
     margin-bottom: 0.5rem;
   }
-
   .pillar-tagline {
     font-size: 0.82rem;
     color: var(--muted);
@@ -378,23 +514,19 @@
     margin-bottom: 1.5rem;
     line-height: 1.5;
   }
-
   .pillar-items {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1rem;
   }
-
   .pillar-item {
     display: flex;
     gap: 12px;
     align-items: flex-start;
   }
-
   .pillar-item-icon {
-    width: 22px;
-    height: 22px;
+    width: 22px; height: 22px;
     flex-shrink: 0;
     background: var(--yellow-dim);
     border: 1px solid var(--accent-stroke);
@@ -403,76 +535,24 @@
     align-items: center;
     justify-content: center;
     margin-top: 1px;
+    transition: background 0.2s, border-color 0.2s;
   }
-
-  .pillar-item-icon svg {
-    width: 12px; height: 12px;
-    fill: var(--yellow);
+  .pillar-card:hover .pillar-item-icon {
+    background: rgba(245,197,24,0.18);
+    border-color: rgba(245,197,24,0.5);
   }
-
+  .pillar-item-icon svg { width: 12px; height: 12px; fill: var(--yellow); }
   .pillar-item-content h4 {
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--text);
     margin-bottom: 2px;
   }
-
   .pillar-item-content p {
     font-size: 0.78rem;
     color: var(--muted);
-    line-height: 1.5;
+    line-height: 1.55;
     font-weight: 300;
-  }
-
-  .tools-section {
-    background: var(--off-black);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 4rem 3rem;
-  }
-
-  .tools-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .tool-chip {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.2rem 1.4rem;
-    transition: all 0.2s;
-    cursor: default;
-  }
-
-  .tool-chip:hover {
-    border-color: var(--accent-stroke);
-    background: var(--yellow-dim);
-    transform: translateY(-3px);
-  }
-
-  .tool-chip-name {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-
-  .tool-chip-use {
-    font-size: 0.72rem;
-    color: var(--muted);
   }
 
   .exp-grid {
@@ -481,17 +561,15 @@
     gap: 1rem;
     max-width: 900px;
   }
-
   .exp-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 1.5rem 1.8rem;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
     position: relative;
     overflow: hidden;
   }
-
   .exp-card::before {
     content: '';
     position: absolute;
@@ -499,35 +577,81 @@
     width: 3px; height: 100%;
     background: var(--yellow);
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.3s;
   }
-
+  .exp-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0% 50%, rgba(245,197,24,0.04) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
   .exp-card:hover {
     border-color: var(--accent-stroke);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
   }
-
   .exp-card:hover::before { opacity: 1; }
-
+  .exp-card:hover::after { opacity: 1; }
   .exp-role {
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     font-weight: 500;
     color: var(--yellow);
     margin-bottom: 3px;
+    letter-spacing: 0.03em;
   }
-
   .exp-org {
     font-size: 0.95rem;
     font-weight: 500;
     color: var(--text);
     margin-bottom: 0.6rem;
   }
-
   .exp-detail {
     font-size: 0.78rem;
     color: var(--muted);
     line-height: 1.55;
     font-weight: 300;
+  }
+
+  .marquee-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--off-black);
+    padding: 1rem 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .marquee-item:hover { color: var(--yellow); }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--yellow);
+    opacity: 0.4;
+    flex-shrink: 0;
   }
 
   .vote-banner {
@@ -536,34 +660,50 @@
     text-align: center;
     overflow: hidden;
   }
-
   .vote-banner::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, rgba(245,197,24,0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(245,197,24,0.07) 0%, transparent 65%);
     pointer-events: none;
   }
-
+  .vote-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px dashed rgba(245,197,24,0.15);
+    pointer-events: none;
+    animation: spin-slow 30s linear infinite;
+  }
+  .vote-ring-2 {
+    width: 360px; height: 360px;
+    border: 1px dashed rgba(245,197,24,0.1);
+    animation-direction: reverse;
+    animation-duration: 20s;
+  }
+  @keyframes spin-slow {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
   .vote-big {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 12vw, 10rem);
+    font-size: clamp(4rem, 13vw, 11rem);
     letter-spacing: 0.05em;
-    line-height: 0.9;
-    background: linear-gradient(to bottom, #F5C518 30%, rgba(245,197,24,0.2) 100%);
+    line-height: 0.88;
+    background: linear-gradient(to bottom, #F5C518 20%, rgba(245,197,24,0.18) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 1.5rem;
+    position: relative;
   }
-
-  .vote-sub {
-    font-size: 1.1rem;
+  .vote-meta {
+    font-size: 0.8rem;
     color: var(--muted);
-    max-width: 480px;
-    margin: 0 auto 2rem;
-    font-weight: 300;
-    line-height: 1.65;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
   }
 
   footer {
@@ -575,14 +715,12 @@
     gap: 1rem;
     background: var(--off-black);
   }
-
   .footer-left {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.1rem;
     letter-spacing: 0.08em;
     color: var(--yellow);
   }
-
   .footer-right {
     font-size: 0.75rem;
     color: var(--muted);
@@ -592,43 +730,37 @@
 
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    transform: translateY(28px);
+    transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
   }
+  .reveal.visible { opacity: 1; transform: none; }
 
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
   }
+  .stagger.visible > * { opacity: 1; transform: none; }
+  .stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+  .stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
+  .stagger.visible > *:nth-child(3) { transition-delay: 0.16s; }
+  .stagger.visible > *:nth-child(4) { transition-delay: 0.24s; }
+  .stagger.visible > *:nth-child(5) { transition-delay: 0.32s; }
 
   @media (max-width: 1100px) {
-    .hero {
-      grid-template-columns: 1fr 0.9fr;
-      gap: 3rem;
-    }
-
-    .pillars-grid,
-    .exp-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .tools-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .pillars-grid, .exp-grid { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 900px) {
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+
     nav {
       padding: 0.9rem 1rem;
+      gap: 0.75rem;
     }
-
-    .nav-name {
-      font-size: 1rem;
-    }
-
-    .nav-links {
-      display: none;
-    }
+    .nav-name { font-size: 1rem; }
+    .nav-links { display: none; }
 
     .hero {
       grid-template-columns: 1fr;
@@ -637,60 +769,32 @@
       gap: 1.6rem;
     }
 
-    .hero-bg-ring {
-      left: 50%;
-      width: 520px;
-      height: 520px;
-      opacity: 0.5;
-    }
+    .hero-bg-ring { left: 50%; width: 520px; height: 520px; opacity: 0.4; }
+    .hero-bg-ring:nth-child(3) { width: 360px; height: 360px; }
 
-    .hero-bg-ring:nth-child(2) {
-      width: 360px;
-      height: 360px;
-    }
+    .hero-left { text-align: center; }
+    .hero-tag { font-size: 0.68rem; padding: 6px 12px; }
+    .hero-name { font-size: clamp(3rem, 15vw, 4.8rem); }
+    .hero-role { font-size: clamp(1rem, 5vw, 1.5rem); margin-bottom: 1.3rem; }
+    .hero-proposed { justify-content: center; gap: 1rem; margin-bottom: 1.35rem; }
+    .hero-cta { padding: 13px 22px; width: 100%; max-width: 320px; justify-content: center; }
 
-    .hero-left {
-      text-align: center;
-    }
-
-    .hero-tag {
-      font-size: 0.68rem;
-      padding: 6px 12px;
-    }
-
-    .hero-name {
-      font-size: clamp(3rem, 15vw, 4.8rem);
-    }
-
-    .hero-role {
-      font-size: clamp(1rem, 5vw, 1.5rem);
-      margin-bottom: 1.3rem;
-    }
-
-    .hero-proposed {
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-cta {
-      padding: 13px 22px;
-      width: 100%;
+    .hero-divider--cta,
+    .hero-divider--photo {
       max-width: 320px;
-      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-right {
-      display: flex;
       justify-content: center;
       margin-top: 0.25rem;
     }
-
-    .photo-frame {
-      width: min(78vw, 290px);
-      aspect-ratio: 4 / 5;
+    .hero-right-inner {
+      width: 100%;
+      max-width: 520px;
     }
-
+    .photo-frame { width: min(78vw, 290px); }
     .photo-badge {
       left: 50%;
       transform: translateX(-50%);
@@ -700,129 +804,67 @@
       white-space: nowrap;
     }
 
-    section {
-      padding: 3.6rem 1rem;
+    .hero-about {
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
     }
 
-    .section-subtitle {
-      max-width: none;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
-    }
-
-    .pillars-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .pillar-card {
-      padding: 2rem 1.1rem;
-    }
-
-    .pillar-number {
-      font-size: 3.5rem;
-    }
-
-    .tools-section {
-      padding: 3rem 1rem;
-    }
-
-    .tools-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .tool-chip {
-      padding: 1rem 1.1rem;
-    }
-
-    .exp-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .exp-card {
-      padding: 1.25rem 1.1rem;
-    }
-
-    .vote-banner {
-      padding: 4.5rem 1rem;
-    }
-
-    .vote-sub {
-      font-size: 1rem;
-      max-width: none;
-    }
-
-    footer {
-      flex-direction: column;
-      text-align: center;
-      padding: 1.5rem 1rem;
-    }
-
-    .footer-right {
-      text-align: center;
-    }
+    section { padding: 3.6rem 1rem; }
+    .section-subtitle { max-width: none; margin-bottom: 2rem; font-size: 0.95rem; }
+    .pillar-card { padding: 2rem 1.1rem; }
+    .pillar-number { font-size: 3.5rem; }
+    .exp-card { padding: 1.25rem 1.1rem; }
+    .vote-banner { padding: 4.5rem 1rem; }
+    .vote-ring { width: 320px; height: 320px; }
+    .vote-ring-2 { width: 220px; height: 220px; }
+    footer { flex-direction: column; text-align: center; padding: 1.5rem 1rem; }
+    .footer-right { text-align: center; }
   }
 
   @media (max-width: 420px) {
-    .nav-logo img {
-      width: 38px;
-      height: 38px;
-    }
-
-    .nav-name {
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-    }
-
-    .hero {
-      padding-top: 6.6rem;
-    }
-
-    .hero-tag {
-      letter-spacing: 0.08em;
-    }
+    .nav-logo img { width: 38px; height: 38px; }
+    .nav-name { font-size: 0.92rem; letter-spacing: 0.04em; }
+    .hero { padding-top: 6.6rem; }
 
     .hero-proposed {
       flex-direction: column;
       align-items: center;
       gap: 0.75rem;
     }
+    .hero-proposed-item { text-align: center; }
 
-    .hero-proposed-item {
-      text-align: center;
+    .hero-about {
+      padding: 0.95rem 0.95rem;
+    }
+    .hero-about p {
+      font-size: 0.9rem;
     }
 
-    .pillar-item {
-      gap: 10px;
-    }
-
-    .pillar-item-content h4 {
-      font-size: 0.82rem;
-    }
-
-    .pillar-item-content p {
-      font-size: 0.76rem;
-    }
+    .pillar-item { gap: 10px; }
   }
 </style>
 </head>
 <body>
 
-<nav>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
   <a class="nav-logo" href="#top" aria-label="Divyan for Secretary">
-    <!-- LOGO LINK HERE -->
     <img src="https://www.cambridgesu.co.uk/asset/Organisation/10201/Picture2-min(1).png?thumbnail_width=420&thumbnail_height=420&resize_type=CropToFit" alt="TSoc Logo" loading="eager" decoding="async">
     <span class="nav-name">Divyan for Secretary</span>
   </a>
-
   <ul class="nav-links">
     <li><a href="#pillars">Manifesto</a></li>
-    <li><a href="#tools">How</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#vote">Vote</a></li>
   </ul>
 </nav>
 
 <div class="hero" id="top">
+  <div class="hero-orb"></div>
   <div class="hero-bg-ring"></div>
   <div class="hero-bg-ring"></div>
 
@@ -832,17 +874,19 @@
       Cambridge University Tamil Society · Secretary 2026
     </div>
 
-    <h1 class="hero-name">DIVYAN<br><span>RANJITHAKUMAR</span></h1>
+    <h1 class="hero-name" aria-label="Divyan Ranjithakumar">
+      <span class="word" data-word="DIVYAN"></span>
+      <span class="word accent" data-word="RANJITHAKUMAR"></span>
+    </h1>
+
     <p class="hero-role">Running for Secretary</p>
 
     <div class="hero-proposed">
       <div class="hero-proposed-item">
-        <strong>Proposed by</strong>
-        Pahalavan
+        <strong>Proposed by</strong>Pahalavan
       </div>
       <div class="hero-proposed-item">
-        <strong>Seconded by</strong>
-        Lithikga
+        <strong>Seconded by</strong>Lithikga
       </div>
     </div>
 
@@ -850,54 +894,70 @@
       See the Vision
       <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M7 0L5.59 1.41L10.17 6H0v2h10.17l-4.58 4.59L7 14l7-7-7-7z"/></svg>
     </a>
+
+    <div class="hero-divider hero-divider--cta"></div>
   </div>
 
   <div class="hero-right">
-    <div class="photo-frame">
-      <!-- PHOTO LINK HERE -->
-      <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_GpTpywqC8xruRRqQAWH9UtnXGc61ZXgjXJO3i_P0jWfDTXCWz37XGv25Cg8dFybJVngGAgbYd76In1S0hcnVknbSaI9ZjZz-UmWN24kF0G5weI4oubyIB-rXHQA6fXrz-QZuLJgm_rnbL5Zhs7E43HnCYTS-ASrnCpDgrrHqD2ZbrwXxvQgUZQKbnHUDlxzG5NMM8XxY1at_HvEQqBzYrD4RyX5jBhp8h7jaJbZqOiFf2a9IBRRBV1_thjCQbPHUu-LGrQLK5__ITtE5Bptpt-9UTvO5fj4oB7mle0NDL396zzIRCORLmqYZPFya2tkIqi8Z0ZY0MffOvSMxBT63M4KgnmdqwxAF1ZIZluay7AlAsTr2H37PgGRbPccxpHGH3ecf2hAEcjdaP2rg2eGdaUTMtsh5otFcTDcrD__8mF_zTRMJ5mfeK9KNyw06vWd_9zbLxl7q6d6xLIDl9_cAYSbfaWSdwDRMqC97XsQ6AqTQI61vPeSuGWdAL-RZ1CiAqdKN1shkYacEYwoZR4ph7kFjP5oqdxVoAjtgCJ1SsUa61KoKw2ZGmcgeCHOwvf9DtUZzY6dkw583M-2dgfrqGd4vpNqi8xVto0T_3Foj6v-0wk4CM-lCJ8MHXF8aal1E1kDHtcXIoyyKbys27_OPI1A6le6nb-Bltl7IDQ602i78td6pS3f_TAgVoo2aLDkPGGriWuzS1gRNJ30Cuu4d_Mc6XflPpUaleLB3zGtq_076Q6sVaxyPiHaSP3a7qD19IFa62QIEIojFWbzJVgxqmSb0cmTUML6KKslqGsm6-UZqg92tdoDKpHw55TV124MKuaXZBI_lI-tRX--73xEQW6v8Bud0II71MyKQ9gDCTIWzCiLM7Z-GGDiZPDEOk8xDTU5G6AV3vS01KZ7AkL5lqcz3nEuZXwKkXrAG7rZurkrQoewKTSK5oGxpKiU-wgz2W7TE4ywHD1RuiM-0dUotSQFZrTsgBA2unFH87TEgvU13wIzdInzFhpmdM9rtxfFmmP9OMnFrsFr04yYy2sWa1sCEzjYScjx_YgKLvPKwUNqGTKH90SM9lEwOB-XWEskLeNpJzPhsBtE1wBa_B1p1TG8hJht9vSq_Q_0_TouqwUFVt02z1ZTJFw0lSgZe9wypdPsYufnDZ1hU_ASeNJjcLNq3DOAz5Q7i49gTzy6t2tCSWA_SHO-0QelbCklu8Q68mscAfIfCs=w1852-h913?auditContext=prefetch" alt="Divyan Ranjithakumar" loading="eager" decoding="async">
-      <div class="photo-badge">Secretary Candidate</div>
+    <div class="hero-right-inner">
+      <div class="photo-frame">
+        <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_GpTpywqC8xruRRqQAWH9UtnXGc61ZXgjXJO3i_P0jWfDTXCWz37XGv25Cg8dFybJVngGAgbYd76In1S0hcnVknbSaI9ZjZz-UmWN24kF0G5weI4oubyIB-rXHQA6fXrz-QZuLJgm_rnbL5Zhs7E43HnCYTS-ASrnCpDgrrHqD2ZbrwXxvQgUZQKbnHUDlxzG5NMM8XxY1at_HvEQqBzYrD4RyX5jBhp8h7jaJbZqOiFf2a9IBRRBV1_thjCQbPHUu-LGrQLK5__ITtE5Bptpt-9UTvO5fj4oB7mle0NDL396zzIRCORLmqYZPFya2tkIqi8Z0ZY0MffOvSMxBT63M4KgnmdqwxAF1ZIZluay7AlAsTr2H37PgGRbPccxpHGH3ecf2hAEcjdaP2rg2eGdaUTMtsh5otFcTDcrD__8mF_zTRMJ5mfeK9KNyw06vWd_9zbLxl7q6d6xLIDl9_cAYSbfaWSdwDRMqC97XsQ6AqTQI61vPeSuGWdAL-RZ1CiAqdKN1shkYacEYwoZR4ph7kFjP5oqdxVoAjtgCJ1SsUa61KoKw2ZGmcgeCHOwvf9DtUZzY6dkw583M-2dgfrqGd4vpNqi8xVto0T_3Foj6v-0wk4CM-lCJ8MHXF8aal1E1kDHtcXIoyyKbys27_OPI1A6le6nb-Bltl7IDQ602i78td6pS3f_TAgVoo2aLDkPGGriWuzS1gRNJ30Cuu4d_Mc6XflPpUaleLB3zGtq_076Q6sVaxyPiHaSP3a7qD19IFa62QIEIojFWbzJVgxqmSb0cmTUML6KKslqGsm6-UZqg92tdoDKpHw55TV124MKuaXZBI_lI-tRX--73xEQW6v8Bud0II71MyKQ9gDCTIWzCiLM7Z-GGDiZPDEOk8xDTU5G6AV3vS01KZ7AkL5lqcz3nEuZXwKkXrAG7rZurkrQoewKTSK5oGxpKiU-wgz2W7TE4ywHD1RuiM-0dUotSQFZrTsgBA2unFH87TEgvU13wIzdInzFhpmdM9rtxfFmmP9OMnFrsFr04yYy2sWa1sCEzjYScjx_YgKLvPKwUNqGTKH90SM9lEwOB-XWEskLeNpJzPhsBtE1wBa_B1p1TG8hJht9vSq_Q_0_TouqwUFVt02z1ZTJFw0lSgZe9wypdPsYufnDZ1hU_ASeNJjcLNq3DOAz5Q7i49gTzy6t2tCSWA_SHO-0QelbCklu8Q68mscAfIfCs=w1852-h913?auditContext=prefetch" alt="Divyan Ranjithakumar" loading="eager" decoding="async">
+        <div class="photo-badge">Secretary Candidate</div>
+      </div>
+
+      <div class="hero-divider hero-divider--photo"></div>
+
+      <div class="hero-about">
+        <div class="hero-about-label">About Me</div>
+        <p>
+          I have a track record of building student communities that actually last — from growing memberships and managing communications to handling budgets, handovers, and partnerships. I care about making TSoc feel organised, purposeful, and genuinely connected, while keeping it ambitious enough to leave behind something better than what we started with.
+        </p>
+      </div>
     </div>
   </div>
+</div>
+
+<div class="marquee-strip">
+  <div class="marquee-track" id="marqueeTrack"></div>
 </div>
 
 <section id="pillars">
   <div class="section-label">Manifesto</div>
   <h2 class="section-title">Three Pillars</h2>
-  <p class="section-subtitle">A focused agenda built on professionalisation, meaningful events, and long-term community continuity.</p>
+  <p class="section-subtitle">What I actually want to change — and how.</p>
+  <div class="pillars-grid">
 
-  <div class="pillars-grid reveal">
     <div class="pillar-card">
       <div class="pillar-number">01</div>
       <div class="pillar-title">Professionalise</div>
-      <p class="pillar-tagline">Transform TSoc into a professionally run society with clearer systems, stronger accountability, and continuity beyond each committee.</p>
+      <p class="pillar-tagline">TSoc deserves proper infrastructure. Right now too much lives in people's heads or in old WhatsApp chats — that needs to change.</p>
       <ul class="pillar-items">
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M2 2h10v10H2z" opacity=".3"/><path d="M1 1h5v5H1zm7 0h5v5h-5zm-7 7h5v5H1zm7 0h5v5h-5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>New TSoc Website</h4>
-            <p>I will build a central TSoc platform for memberships, event tickets, announcements, and useful society information, so members are not relying on scattered messages across different chats.</p>
+            <h4>A real TSoc website</h4>
+            <p>One place for memberships, event tickets, and information — so members aren't hunting across five different group chats to find out what's on.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" opacity=".3"/><path d="M7 4v3l2 2-1 1-2.5-2.5V4h1.5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Seamless Digital Payments</h4>
-            <p>Use Stripe or Ticket Tailor for tickets and payments, making transactions faster, traceable, and easier to manage while reducing admin pressure on the committee.</p>
+            <h4>Actual payment systems</h4>
+            <p>No more bank transfers. Stripe-integrated ticketing means faster payments, automatic records, and far less admin stress for whoever's treasurer.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="1" y="4" width="12" height="7" rx="1" opacity=".3"/><path d="M4 4V3a3 3 0 016 0v1"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Slack for Committee Comms</h4>
-            <p>Move committee communication onto Slack with dedicated channels for publicity, events, sponsorships, and handover — so discussions are organised and searchable.</p>
+            <h4>Slack for committee comms</h4>
+            <p>Separate channels for events, publicity, and sponsorships — so conversations are searchable, nothing gets buried, and new committee members can actually get up to speed.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M1 3h12M1 7h9M1 11h6" stroke-width="1.5" stroke="currentColor" fill="none"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Notion for Documentation</h4>
-            <p>Create a permanent Notion workspace for event templates, contacts, handover notes, and onboarding guides, so every committee inherits a proper system rather than restarting from scratch.</p>
+            <h4>Institutional memory</h4>
+            <p>Proper written handovers, contact lists, and event templates — so the next committee isn't starting from zero and we stop losing things when people graduate.</p>
           </div>
         </li>
       </ul>
@@ -906,34 +966,34 @@
     <div class="pillar-card">
       <div class="pillar-number">02</div>
       <div class="pillar-title">CPD & Events</div>
-      <p class="pillar-tagline">Shift TSoc toward events with real value — intellectual, professional, and cultural.</p>
+      <p class="pillar-tagline">Events with a point — not just nights out, but things people actually remember and come back for.</p>
       <ul class="pillar-items">
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="4" r="2.5" opacity=".3"/><path d="M2 12c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg></div>
           <div class="pillar-item-content">
-            <h4>CPD & Networking Sessions</h4>
-            <p>Run termly sessions with Tamil professionals in law, finance, tech, and other fields, with targeted outreach to alumni and external contacts to make the events genuinely useful.</p>
+            <h4>Careers events that feel useful</h4>
+            <p>Termly sessions with Tamil professionals in law, finance, medicine, and tech — speakers who actually look like us, talking about paths we might want to take.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Intellectual Heritage Events</h4>
-            <p>Host discussions on Tamil history and contemporary issues with proper framing and pre-circulated context, creating space for thoughtful and informed conversation.</p>
+            <h4>More events like the civil war discussion</h4>
+            <p>Space to talk honestly about Tamil history and current affairs — with proper framing and context circulated beforehand so it's an informed conversation, not just noise.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z" opacity=".3"/><path d="M4 13h6M7 9v4"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Purpose-Driven Charity</h4>
-            <p>Every charity event will explain where the money is going and why it matters, with post-event updates so members can see the direct impact of what they supported.</p>
+            <h4>Charity with context</h4>
+            <p>Every charity event should explain where the money is going and why it matters. Post-event updates so members can see the actual impact of what they gave.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1" opacity=".3"/><path d="M5 7h4M7 5v4"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Retention-Focused Events</h4>
-            <p>Plan events for more than just freshers — formal dinners, collaborative socials, and networking events designed to keep older members involved throughout the year.</p>
+            <h4>Keeping older members in the picture</h4>
+            <p>Dinners, collaborative socials, networking events — a calendar that isn't just aimed at first-years, because TSoc should feel relevant through all three years.</p>
           </div>
         </li>
       </ul>
@@ -942,117 +1002,80 @@
     <div class="pillar-card">
       <div class="pillar-number">03</div>
       <div class="pillar-title">Community & Continuity</div>
-      <p class="pillar-tagline">Build a Tamil community that lasts beyond Cambridge and remains connected over time.</p>
+      <p class="pillar-tagline">A Tamil community that lasts beyond graduation and grows bigger than just Cambridge.</p>
       <ul class="pillar-items">
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="2" y="6" width="10" height="6" rx="1" opacity=".3"/><path d="M5 6V4a2 2 0 014 0v2"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Alumni Directory</h4>
-            <p>Set up a searchable alumni database to support mentoring, referrals, and long-term engagement with TSoc after graduation.</p>
+            <h4>Alumni directory</h4>
+            <p>A searchable database so members can find each other for mentorship, job referrals, or just staying in touch — built properly so it doesn't die after one year.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Sponsorship Strategy</h4>
-            <p>Build a proper sponsorship pipeline targeting Tamil-owned businesses and relevant brands, with clear value propositions for event exposure, branding, and partnership opportunities.</p>
+            <h4>Actual sponsorship pipeline</h4>
+            <p>Approach Tamil and South Asian-owned businesses with a proper pitch — clear value for event exposure, branding, and community reach, not just a cold email.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="4" cy="7" r="2" opacity=".3"/><circle cx="10" cy="7" r="2" opacity=".3"/><path d="M6 7h2"/></svg></div>
           <div class="pillar-item-content">
-            <h4>UK-Wide Collaborations</h4>
-            <p>Work with Tamil societies across the UK to scale joint events and position Cambridge TSoc as part of a wider student network.</p>
+            <h4>UK-wide Tamil student network</h4>
+            <p>Joint events with TSocs at Oxford, UCL, and beyond — so Cambridge isn't operating in isolation and we're part of something bigger.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="9" rx="1" opacity=".3"/><path d="M4 12h6M7 11v1"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Monthly Newsletter</h4>
-            <p>Launch a professional monthly email brief with society updates, Tamil current affairs, and short cultural or language features to keep members engaged year-round.</p>
+            <h4>Monthly newsletter</h4>
+            <p>A short, actually-worth-reading email — society news, Tamil current affairs, and a quick language or cultural bite. Something you open, not something you delete.</p>
           </div>
         </li>
       </ul>
     </div>
+
   </div>
 </section>
-
-<div class="tools-section" id="tools">
-  <div class="tools-title">The Toolkit — How It Gets Done</div>
-  <div class="tools-grid reveal">
-    <div class="tool-chip">
-      <div class="tool-chip-name">Slack</div>
-      <div class="tool-chip-use">Committee channels & project threads</div>
-    </div>
-    <div class="tool-chip">
-      <div class="tool-chip-name">Notion</div>
-      <div class="tool-chip-use">Documentation & onboarding wikis</div>
-    </div>
-    <div class="tool-chip">
-      <div class="tool-chip-name">Stripe / Ticket Tailor</div>
-      <div class="tool-chip-use">Digital payments & event ticketing</div>
-    </div>
-    <div class="tool-chip">
-      <div class="tool-chip-name">Webflow / Framer</div>
-      <div class="tool-chip-use">TSoc website & member portal</div>
-    </div>
-    <div class="tool-chip">
-      <div class="tool-chip-name">Mailchimp</div>
-      <div class="tool-chip-use">Professional newsletter delivery</div>
-    </div>
-    <div class="tool-chip">
-      <div class="tool-chip-name">Google Drive</div>
-      <div class="tool-chip-use">Shared committee resources</div>
-    </div>
-    <div class="tool-chip">
-      <div class="tool-chip-name">Airtable</div>
-      <div class="tool-chip-use">Alumni directory & sponsorship CRM</div>
-    </div>
-    <div class="tool-chip">
-      <div class="tool-chip-name">Instagram / LinkedIn</div>
-      <div class="tool-chip-use">Public-facing comms & networking</div>
-    </div>
-  </div>
-</div>
 
 <section id="experience">
   <div class="section-label">Why Me</div>
   <h2 class="section-title">The Experience</h2>
-  <p class="section-subtitle">A track record of building, growing, and professionalising student organisations from the ground up.</p>
-
-  <div class="exp-grid reveal">
+  <p class="section-subtitle">I've run societies before — built them from scratch, grown membership, and made them last.</p>
+  <div class="exp-grid stagger reveal">
     <div class="exp-card">
       <div class="exp-role">Publicity Officer</div>
       <div class="exp-org">Union of Clare Students (UCS)</div>
-      <div class="exp-detail">Currently serving on the UCS committee, managing communications, campaigns, and public-facing content for one of Cambridge's most active college unions.</div>
+      <div class="exp-detail">Currently on the UCS committee — managing communications, campaigns, and public-facing content for one of Cambridge's most active college unions.</div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Treasurer</div>
       <div class="exp-org">Cambridge Telugu Society</div>
-      <div class="exp-detail">Handled financial oversight and budgeting for a growing cultural society — directly relevant to sponsorship tracking, payments, and transparent administration.</div>
+      <div class="exp-detail">Financial oversight and budgeting for a growing cultural society — directly relevant to handling payments, sponsorships, and keeping accounts transparent.</div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Former President & Social Media Officer</div>
       <div class="exp-org">HRSFC South Asian Society</div>
-      <div class="exp-detail">Grew the society to over 150 registered members and achieved the highest event turnout and retention rate of any committee in the institution's history.</div>
+      <div class="exp-detail">Grew the society to 150+ registered members — the biggest cultural society at the time — with the highest event turnout and retention rate of any committee in the institution's history.</div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Former Secretary & Publicity Officer</div>
       <div class="exp-org">HRSFC Hindu, Sikh & Jain Society</div>
-      <div class="exp-detail">Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division, navigating affiliation and institutional partnership processes.</div>
+      <div class="exp-detail">Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division — navigating formal affiliation and institutional partnership processes.</div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Head Student</div>
       <div class="exp-org">Old Buckenham High School</div>
-      <div class="exp-detail">Elected to represent the student body, developing leadership, organisation, and pastoral experience from an early stage.</div>
+      <div class="exp-detail">Elected to represent the student body — early foundation in leadership, organisation, and pastoral responsibility.</div>
     </div>
   </div>
 </section>
 
 <div class="vote-banner" id="vote">
+  <div class="vote-ring"></div>
+  <div class="vote-ring vote-ring-2"></div>
   <div class="vote-big">VOTE<br>DIVYAN</div>
-  <p class="vote-sub">For a more professional, purposeful, and permanent Cambridge University Tamil Society.</p>
-  <div style="font-size:0.8rem; color: var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Cambridge University Tamil Society · Committee Elections 2026</div>
+  <div class="vote-meta">Cambridge University Tamil Society · Committee Elections 2026</div>
 </div>
 
 <footer>
@@ -1061,37 +1084,91 @@
 </footer>
 
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, button, .pillar-card, .exp-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '54px';
+      ring.style.height = '54px';
+      ring.style.borderColor = 'rgba(245,197,24,0.7)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(245,197,24,0.5)';
+    });
+  });
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  document.querySelectorAll('.hero-name .word').forEach((word, wi) => {
+    const letters = word.dataset.word.split('');
+    letters.forEach((ch, i) => {
+      const s = document.createElement('span');
+      s.textContent = ch;
+      s.style.animationDelay = (0.2 + wi * 0.18 + i * 0.035) + 's';
+      word.appendChild(s);
+    });
+  });
+
+  const items = ['Professionalise TSoc','CPD & Careers','Alumni Network','Digital Payments','Intellectual Events','UK-Wide Collabs','Monthly Newsletter','Purpose-Driven Charity','Sponsorship Strategy','Committee Culture'];
+  const track = document.getElementById('marqueeTrack');
+  const full = [...items, ...items];
+  full.forEach(text => {
+    const el = document.createElement('span');
+    el.className = 'marquee-item';
+    el.innerHTML = `<span class="marquee-dot"></span>${text}`;
+    track.appendChild(el);
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
       if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        e.target.classList.add('visible');
         obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => obs.observe(el));
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
 
-  document.querySelectorAll('.pillar-card').forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = `opacity 0.6s ${i * 0.1}s cubic-bezier(0.22,1,0.36,1), transform 0.6s ${i * 0.1}s cubic-bezier(0.22,1,0.36,1)`;
+  const cards = document.querySelectorAll('.pillar-card');
+  cards.forEach((c, i) => {
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(22px)';
+    c.style.transition = `opacity 0.65s ${i * 0.12}s cubic-bezier(0.22,1,0.36,1), transform 0.65s ${i * 0.12}s cubic-bezier(0.22,1,0.36,1), background 0.3s`;
   });
-
-  const pillarObs = new IntersectionObserver((entries) => {
+  const pGrid = document.querySelector('.pillars-grid');
+  const pObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        document.querySelectorAll('.pillar-card').forEach(card => {
-          card.style.opacity = '1';
-          card.style.transform = 'none';
-        });
-        pillarObs.disconnect();
+        cards.forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+        pObs.disconnect();
       }
     });
   }, { threshold: 0.05 });
+  if (pGrid) pObs.observe(pGrid);
 
-  const grid = document.querySelector('.pillars-grid');
-  if (grid) pillarObs.observe(grid);
+  const orb = document.querySelector('.hero-orb');
+  window.addEventListener('scroll', () => {
+    if (orb) orb.style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.15}px))`;
+  }, { passive: true });
 </script>
 </body>
 </html>
