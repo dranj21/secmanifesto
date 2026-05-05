@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="lang-en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090909">
 <title>Divyan for Secretary 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Noto+Sans+Tamil:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -36,6 +36,11 @@
     cursor: none;
   }
 
+  body.lang-ta .lang {
+    font-family: 'Noto Sans Tamil', 'DM Sans', sans-serif;
+  }
+
+  /* ——— CUSTOM CURSOR ——— */
   .cursor {
     position: fixed;
     width: 10px; height: 10px;
@@ -60,6 +65,7 @@
   body:hover .cursor { opacity: 1; }
   a:hover ~ .cursor, button:hover ~ .cursor { width: 16px; height: 16px; }
 
+  /* ——— NOISE ——— */
   body::before {
     content: '';
     position: fixed;
@@ -70,6 +76,7 @@
     opacity: 0.6;
   }
 
+  /* ——— NAV ——— */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -90,6 +97,13 @@
     border-bottom-color: var(--border);
   }
 
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+  }
+
   .nav-logo {
     display: flex;
     align-items: center;
@@ -107,7 +121,6 @@
     transition: box-shadow 0.3s;
   }
   .nav-logo:hover img { box-shadow: 0 0 22px rgba(245,197,24,0.4); }
-
   .nav-name {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.15rem;
@@ -116,12 +129,19 @@
     white-space: nowrap;
   }
 
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
     flex-wrap: wrap;
     justify-content: flex-end;
+    align-items: center;
   }
   .nav-links a {
     color: var(--muted);
@@ -144,6 +164,64 @@
   .nav-links a:hover { color: var(--yellow); }
   .nav-links a:hover::after { width: 100%; }
 
+  .lang-toggle {
+    border: 1px solid rgba(245,197,24,0.24);
+    background: rgba(245,197,24,0.08);
+    color: var(--yellow);
+    border-radius: 999px;
+    padding: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .lang-toggle:hover {
+    transform: translateY(-1px);
+    border-color: rgba(245,197,24,0.45);
+    background: rgba(245,197,24,0.14);
+  }
+  .toggle-track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 96px;
+    height: 34px;
+    border-radius: 999px;
+    padding: 0 10px;
+    overflow: hidden;
+  }
+  .toggle-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 44px;
+    height: 28px;
+    border-radius: 999px;
+    background: var(--yellow);
+    box-shadow: 0 8px 18px rgba(245,197,24,0.25);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
+    z-index: 0;
+  }
+  .toggle-label {
+    position: relative;
+    z-index: 1;
+    width: 50%;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  body.lang-en .toggle-label-en,
+  body.lang-ta .toggle-label-ta {
+    color: var(--black);
+  }
+  body.lang-ta .toggle-knob {
+    transform: translateX(48px);
+  }
+
+  /* ——— HERO ——— */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -320,14 +398,13 @@
     width: 100%;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(245,197,24,0.55), transparent);
-    margin: 1.25rem 0 1rem;
+    margin: 1.2rem 0 1rem;
     opacity: 0;
     animation: fade-up 0.9s 0.82s cubic-bezier(0.22,1,0.36,1) forwards;
   }
-  .hero-divider--photo {
-    max-width: 360px;
-    margin: 1.05rem auto 1rem;
-  }
+  .hero-divider--cta { max-width: 520px; }
+  .hero-divider--photo,
+  .hero-divider--photo-bottom { max-width: 360px; }
 
   .hero-right {
     position: relative;
@@ -338,7 +415,6 @@
     opacity: 0;
     animation: fade-up 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
   }
-
   .hero-right-inner {
     width: 100%;
     max-width: 360px;
@@ -429,6 +505,7 @@
     font-weight: 300;
   }
 
+  /* ——— SECTION SHARED ——— */
   section { padding: 6rem 3rem; position: relative; z-index: 1; }
   .section-label {
     display: inline-flex;
@@ -446,6 +523,7 @@
     width: 24px; height: 1px;
     background: var(--yellow);
   }
+
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -453,6 +531,7 @@
     line-height: 1;
     margin-bottom: 1rem;
   }
+
   .section-subtitle {
     color: var(--muted);
     font-size: 1rem;
@@ -462,6 +541,7 @@
     font-weight: 300;
   }
 
+  /* ——— PILLARS ——— */
   .pillars-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -491,6 +571,7 @@
   }
   .pillar-card:hover { background: #1b1b1b; }
   .pillar-card:hover::after { transform: scaleX(1); }
+
   .pillar-number {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 4rem;
@@ -500,6 +581,7 @@
     transition: color 0.3s;
   }
   .pillar-card:hover .pillar-number { color: rgba(245,197,24,0.22); }
+
   .pillar-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.6rem;
@@ -555,6 +637,7 @@
     font-weight: 300;
   }
 
+  /* ——— EXPERIENCE ——— */
   .exp-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -594,6 +677,7 @@
   }
   .exp-card:hover::before { opacity: 1; }
   .exp-card:hover::after { opacity: 1; }
+
   .exp-role {
     font-size: 0.82rem;
     font-weight: 500;
@@ -614,6 +698,7 @@
     font-weight: 300;
   }
 
+  /* ——— MARQUEE STRIP ——— */
   .marquee-strip {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -654,9 +739,10 @@
     flex-shrink: 0;
   }
 
+  /* ——— VOTE BANNER ——— */
   .vote-banner {
     position: relative;
-    padding: 6rem 3rem;
+    padding: 6rem 3rem 4rem;
     text-align: center;
     overflow: hidden;
   }
@@ -705,7 +791,15 @@
     text-transform: uppercase;
     margin-top: 1.5rem;
   }
+  .signature-line {
+    margin-top: 1.1rem;
+    color: rgba(240,237,230,0.66);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
 
+  /* ——— FOOTER ——— */
   footer {
     border-top: 1px solid var(--border);
     padding: 2rem 3rem;
@@ -728,6 +822,7 @@
     text-align: right;
   }
 
+  /* ——— SCROLL REVEAL ——— */
   .reveal {
     opacity: 0;
     transform: translateY(28px);
@@ -735,6 +830,7 @@
   }
   .reveal.visible { opacity: 1; transform: none; }
 
+  /* ——— STAGGER CHILDREN ——— */
   .stagger > * {
     opacity: 0;
     transform: translateY(18px);
@@ -747,6 +843,7 @@
   .stagger.visible > *:nth-child(4) { transition-delay: 0.24s; }
   .stagger.visible > *:nth-child(5) { transition-delay: 0.32s; }
 
+  /* ——— RESPONSIVE ——— */
   @media (max-width: 1100px) {
     .pillars-grid, .exp-grid { grid-template-columns: 1fr; }
   }
@@ -780,7 +877,8 @@
     .hero-cta { padding: 13px 22px; width: 100%; max-width: 320px; justify-content: center; }
 
     .hero-divider--cta,
-    .hero-divider--photo {
+    .hero-divider--photo,
+    .hero-divider--photo-bottom {
       max-width: 320px;
       margin-left: auto;
       margin-right: auto;
@@ -816,7 +914,7 @@
     .pillar-card { padding: 2rem 1.1rem; }
     .pillar-number { font-size: 3.5rem; }
     .exp-card { padding: 1.25rem 1.1rem; }
-    .vote-banner { padding: 4.5rem 1rem; }
+    .vote-banner { padding: 4.5rem 1rem 3rem; }
     .vote-ring { width: 320px; height: 320px; }
     .vote-ring-2 { width: 220px; height: 220px; }
     footer { flex-direction: column; text-align: center; padding: 1.5rem 1rem; }
@@ -827,6 +925,18 @@
     .nav-logo img { width: 38px; height: 38px; }
     .nav-name { font-size: 0.92rem; letter-spacing: 0.04em; }
     .hero { padding-top: 6.6rem; }
+
+    .toggle-track {
+      width: 88px;
+      height: 32px;
+    }
+    .toggle-knob {
+      width: 40px;
+      height: 26px;
+    }
+    body.lang-ta .toggle-knob {
+      transform: translateX(44px);
+    }
 
     .hero-proposed {
       flex-direction: column;
@@ -852,15 +962,28 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <nav id="nav">
-  <a class="nav-logo" href="#top" aria-label="Divyan for Secretary">
-    <img src="https://www.cambridgesu.co.uk/asset/Organisation/10201/Picture2-min(1).png?thumbnail_width=420&thumbnail_height=420&resize_type=CropToFit" alt="TSoc Logo" loading="eager" decoding="async">
-    <span class="nav-name">Divyan for Secretary</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#pillars">Manifesto</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#vote">Vote</a></li>
-  </ul>
+  <div class="nav-left">
+    <a class="nav-logo" href="#top" aria-label="Divyan for Secretary">
+      <img src="https://www.cambridgesu.co.uk/asset/Organisation/10201/Picture2-min(1).png?thumbnail_width=420&thumbnail_height=420&resize_type=CropToFit" alt="TSoc Logo" loading="eager" decoding="async">
+      <span class="nav-name">Divyan for Secretary</span>
+    </a>
+  </div>
+
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#pillars">Manifesto</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#vote">Vote</a></li>
+    </ul>
+
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language" aria-pressed="false">
+      <span class="toggle-track">
+        <span class="toggle-knob"></span>
+        <span class="toggle-label toggle-label-en">EN</span>
+        <span class="toggle-label toggle-label-ta">தமிழ்</span>
+      </span>
+    </button>
+  </div>
 </nav>
 
 <div class="hero" id="top">
@@ -869,7 +992,7 @@
   <div class="hero-bg-ring"></div>
 
   <div class="hero-left">
-    <div class="hero-tag">
+    <div class="hero-tag lang" data-en="Cambridge University Tamil Society · Secretary 2026" data-ta="கேம்பிரிட்ஜ் தமிழ்ச் சங்கம் · செயலாளர் 2026">
       <div class="hero-tag-dot"></div>
       Cambridge University Tamil Society · Secretary 2026
     </div>
@@ -879,7 +1002,7 @@
       <span class="word accent" data-word="RANJITHAKUMAR"></span>
     </h1>
 
-    <p class="hero-role">Running for Secretary</p>
+    <p class="hero-role lang" data-en="Running for Secretary" data-ta="செயலாளர் பதவிக்கு">Running for Secretary</p>
 
     <div class="hero-proposed">
       <div class="hero-proposed-item">
@@ -891,7 +1014,7 @@
     </div>
 
     <a class="hero-cta" href="#pillars">
-      See the Vision
+      <span class="lang cta-text" data-en="See the Vision" data-ta="திட்டத்தைப் பாருங்கள்">See the Vision</span>
       <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M7 0L5.59 1.41L10.17 6H0v2h10.17l-4.58 4.59L7 14l7-7-7-7z"/></svg>
     </a>
 
@@ -908,11 +1031,15 @@
       <div class="hero-divider hero-divider--photo"></div>
 
       <div class="hero-about">
-        <div class="hero-about-label">About Me</div>
-        <p>
+        <div class="hero-about-label lang" data-en="About Me" data-ta="என்னைப் பற்றி">About Me</div>
+        <p class="lang"
+           data-en="I have a track record of building student communities that actually last — from growing memberships and managing communications to handling budgets, handovers, and partnerships. I care about making TSoc feel organised, purposeful, and genuinely connected, while keeping it ambitious enough to leave behind something better than what we started with."
+           data-ta="மாணவர் சமூகங்களை நீடிக்கக்கூடிய முறையில் வளர்த்தல், தொடர்புகளை நிர்வகித்தல், பட்ஜெட் மற்றும் handover-களை கையாளுதல், கூட்டாண்மைகளை அமைத்தல் ஆகியவற்றில் எனக்கு அனுபவம் உள்ளது. TSoc-ஐ ஒழுங்கான, நோக்கமுள்ள, உண்மையாக இணைந்த சமூகமாக மாற்றி, நாம் தொடங்கியதைவிட சிறந்த ஒன்றை விட்டுச் செல்லவேண்டும் என்பதே என் நோக்கம்.">
           I have a track record of building student communities that actually last — from growing memberships and managing communications to handling budgets, handovers, and partnerships. I care about making TSoc feel organised, purposeful, and genuinely connected, while keeping it ambitious enough to leave behind something better than what we started with.
         </p>
       </div>
+
+      <div class="hero-divider hero-divider--photo-bottom"></div>
     </div>
   </div>
 </div>
@@ -922,15 +1049,23 @@
 </div>
 
 <section id="pillars">
-  <div class="section-label">Manifesto</div>
+  <div class="section-label lang" data-en="Manifesto · அறிக்கை" data-ta="அறிக்கை · Manifesto">Manifesto · அறிக்கை</div>
   <h2 class="section-title">Three Pillars</h2>
-  <p class="section-subtitle">What I actually want to change — and how.</p>
-  <div class="pillars-grid">
+  <p class="section-subtitle lang"
+     data-en="What I actually want to change — and how."
+     data-ta="நான் மாற்ற விரும்புவது — மற்றும் அதை எப்படிச் செய்வேன்.">
+    What I actually want to change — and how.
+  </p>
 
+  <div class="pillars-grid">
     <div class="pillar-card">
       <div class="pillar-number">01</div>
       <div class="pillar-title">Professionalise</div>
-      <p class="pillar-tagline">TSoc deserves proper infrastructure. Right now too much lives in people's heads or in old WhatsApp chats — that needs to change.</p>
+      <p class="pillar-tagline lang"
+         data-en="TSoc deserves proper infrastructure. Right now too much lives in people's heads or in old WhatsApp chats — that needs to change."
+         data-ta="TSoc-க்கு உறுதியான அமைப்பு தேவை. இப்போது அதிகமானது மக்களின் மனதில் அல்லது பழைய WhatsApp chats-இல் சிக்கியுள்ளது — அதுதான் மாற வேண்டும்.">
+        TSoc deserves proper infrastructure. Right now too much lives in people's heads or in old WhatsApp chats — that needs to change.
+      </p>
       <ul class="pillar-items">
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M2 2h10v10H2z" opacity=".3"/><path d="M1 1h5v5H1zm7 0h5v5h-5zm-7 7h5v5H1zm7 0h5v5h-5z"/></svg></div>
@@ -966,7 +1101,11 @@
     <div class="pillar-card">
       <div class="pillar-number">02</div>
       <div class="pillar-title">CPD & Events</div>
-      <p class="pillar-tagline">Events with a point — not just nights out, but things people actually remember and come back for.</p>
+      <p class="pillar-tagline lang"
+         data-en="Events with a point — not just nights out, but things people actually remember and come back for."
+         data-ta="நோக்கம் உள்ள நிகழ்வுகள் — வெறும் social அல்ல; நினைவில் நிற்கும், திரும்பி வரச் செய்யும் அனுபவங்கள்.">
+        Events with a point — not just nights out, but things people actually remember and come back for.
+      </p>
       <ul class="pillar-items">
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="4" r="2.5" opacity=".3"/><path d="M2 12c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg></div>
@@ -1002,7 +1141,11 @@
     <div class="pillar-card">
       <div class="pillar-number">03</div>
       <div class="pillar-title">Community & Continuity</div>
-      <p class="pillar-tagline">A Tamil community that lasts beyond graduation and grows bigger than just Cambridge.</p>
+      <p class="pillar-tagline lang"
+         data-en="A Tamil community that lasts beyond graduation and grows bigger than just Cambridge."
+         data-ta="பட்டமளிப்பிற்குப் பிறகும் நீடிக்கும், Cambridge-ஐத் தாண்டியும் வளரும் தமிழ் சமூகத்தை உருவாக்குதல்.">
+        A Tamil community that lasts beyond graduation and grows bigger than just Cambridge.
+      </p>
       <ul class="pillar-items">
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="2" y="6" width="10" height="6" rx="1" opacity=".3"/><path d="M5 6V4a2 2 0 014 0v2"/></svg></div>
@@ -1034,39 +1177,63 @@
         </li>
       </ul>
     </div>
-
   </div>
 </section>
 
 <section id="experience">
-  <div class="section-label">Why Me</div>
+  <div class="section-label">Why Me · ஏன் நான்</div>
   <h2 class="section-title">The Experience</h2>
-  <p class="section-subtitle">I've run societies before — built them from scratch, grown membership, and made them last.</p>
+  <p class="section-subtitle lang"
+     data-en="I've run societies before — built them from scratch, grown membership, and made them last."
+     data-ta="நான் சமூகங்களை தொடங்கி வளர்த்தும், அவற்றை நீடிக்கச் செய்தும் வந்தவன்.">
+    I've run societies before — built them from scratch, grown membership, and made them last.
+  </p>
+
   <div class="exp-grid stagger reveal">
     <div class="exp-card">
       <div class="exp-role">Publicity Officer</div>
       <div class="exp-org">Union of Clare Students (UCS)</div>
-      <div class="exp-detail">Currently on the UCS committee — managing communications, campaigns, and public-facing content for one of Cambridge's most active college unions.</div>
+      <div class="exp-detail lang"
+           data-en="Currently on the UCS committee — managing communications, campaigns, and public-facing content for one of Cambridge's most active college unions."
+           data-ta="UCS committee-இல் தற்போது பணியாற்றுகிறேன் — Cambridge-இன் மிகச் செயலில் இருக்கும் college unions-ில் ஒன்றுக்கான தொடர்புகள், பிரச்சாரங்கள், மற்றும் public-facing content-ஐ நிர்வகிக்கிறேன்.">
+        Currently on the UCS committee — managing communications, campaigns, and public-facing content for one of Cambridge's most active college unions.
+      </div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Treasurer</div>
       <div class="exp-org">Cambridge Telugu Society</div>
-      <div class="exp-detail">Financial oversight and budgeting for a growing cultural society — directly relevant to handling payments, sponsorships, and keeping accounts transparent.</div>
+      <div class="exp-detail lang"
+           data-en="Financial oversight and budgeting for a growing cultural society — directly relevant to handling payments, sponsorships, and keeping accounts transparent."
+           data-ta="வளர்ந்து வரும் ஒரு cultural society-க்கான நிதி மேலாண்மை மற்றும் budget-களை கையாள்ந்த அனுபவம் — payments, sponsorships, மற்றும் transparent accounts-க்கு நேரடியாகப் பொருந்துகிறது.">
+        Financial oversight and budgeting for a growing cultural society — directly relevant to handling payments, sponsorships, and keeping accounts transparent.
+      </div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Former President & Social Media Officer</div>
       <div class="exp-org">HRSFC South Asian Society</div>
-      <div class="exp-detail">Grew the society to 150+ registered members — the biggest cultural society at the time — with the highest event turnout and retention rate of any committee in the institution's history.</div>
+      <div class="exp-detail lang"
+           data-en="Grew the society to 150+ registered members — the biggest cultural society at the time — with the highest event turnout and retention rate of any committee in the institution's history."
+           data-ta="150+ உறுப்பினர்களாக society-ஐ வளர்த்தேன் — அக்காலத்தில் மிகப் பெரிய cultural society — மேலும் அந்த நிறுவன வரலாற்றிலேயே மிக உயர்ந்த event turnout மற்றும் retention rate-ஐ பெற்றோம்.">
+        Grew the society to 150+ registered members — the biggest cultural society at the time — with the highest event turnout and retention rate of any committee in the institution's history.
+      </div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Former Secretary & Publicity Officer</div>
       <div class="exp-org">HRSFC Hindu, Sikh & Jain Society</div>
-      <div class="exp-detail">Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division — navigating formal affiliation and institutional partnership processes.</div>
+      <div class="exp-detail lang"
+           data-en="Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division — navigating formal affiliation and institutional partnership processes."
+           data-ta="NHSF Schools Division-இல் சேரும் முதல் sixth form ஆக society-ஐ முன்னெடுத்து சென்றேன் — formal affiliation மற்றும் institutional partnership செயல்முறைகளை வழிநடத்தி.">
+        Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division — navigating formal affiliation and institutional partnership processes.
+      </div>
     </div>
     <div class="exp-card">
       <div class="exp-role">Head Student</div>
       <div class="exp-org">Old Buckenham High School</div>
-      <div class="exp-detail">Elected to represent the student body — early foundation in leadership, organisation, and pastoral responsibility.</div>
+      <div class="exp-detail lang"
+           data-en="Elected to represent the student body — early foundation in leadership, organisation, and pastoral responsibility."
+           data-ta="மாணவர் கூட்டத்தை பிரதிநிதித்துவப்படுத்தத் தேர்ந்தெடுக்கப்பட்டேன் — leadership, organisation, மற்றும் pastoral responsibility-இல் ஆரம்ப அடித்தளம்.">
+        Elected to represent the student body — early foundation in leadership, organisation, and pastoral responsibility.
+      </div>
     </div>
   </div>
 </section>
@@ -1075,7 +1242,12 @@
   <div class="vote-ring"></div>
   <div class="vote-ring vote-ring-2"></div>
   <div class="vote-big">VOTE<br>DIVYAN</div>
-  <div class="vote-meta">Cambridge University Tamil Society · Committee Elections 2026</div>
+  <div class="vote-meta lang"
+       data-en="Cambridge University Tamil Society · Committee Elections 2026"
+       data-ta="கேம்பிரிட்ஜ் தமிழ்ச் சங்கம் · குழுத் தேர்தல்கள் 2026">
+    Cambridge University Tamil Society · Committee Elections 2026
+  </div>
+  <div class="signature-line">நன்றி · Thank you</div>
 </div>
 
 <footer>
@@ -1084,6 +1256,30 @@
 </footer>
 
 <script>
+  const langToggle = document.getElementById('langToggle');
+  const langNodes = document.querySelectorAll('[data-en][data-ta]');
+
+  function setLanguage(lang) {
+    document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
+    document.body.classList.toggle('lang-ta', lang === 'ta');
+    document.body.classList.toggle('lang-en', lang !== 'ta');
+
+    langNodes.forEach((el) => {
+      const value = el.dataset[lang];
+      if (value !== undefined) el.textContent = value;
+    });
+
+    langToggle.setAttribute('aria-pressed', lang === 'ta' ? 'true' : 'false');
+    localStorage.setItem('tsoc-lang', lang);
+  }
+
+  langToggle.addEventListener('click', () => {
+    const next = document.body.classList.contains('lang-ta') ? 'en' : 'ta';
+    setLanguage(next);
+  });
+
+  setLanguage(localStorage.getItem('tsoc-lang') || 'en');
+
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -1128,10 +1324,20 @@
     });
   });
 
-  const items = ['Professionalise TSoc','CPD & Careers','Alumni Network','Digital Payments','Intellectual Events','UK-Wide Collabs','Monthly Newsletter','Purpose-Driven Charity','Sponsorship Strategy','Committee Culture'];
+  const items = [
+    'Professionalise TSoc',
+    'CPD & Careers',
+    'Alumni Network',
+    'Digital Payments',
+    'தமிழ் ஒற்றுமை',
+    'UK-Wide Collabs',
+    'Monthly Newsletter',
+    'மரபும் முன்னேற்றமும்',
+    'Sponsorship Strategy',
+    'சமூக வளர்ச்சி'
+  ];
   const track = document.getElementById('marqueeTrack');
-  const full = [...items, ...items];
-  full.forEach(text => {
+  [...items, ...items].forEach(text => {
     const el = document.createElement('span');
     el.className = 'marquee-item';
     el.innerHTML = `<span class="marquee-dot"></span>${text}`;
