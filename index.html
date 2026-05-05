@@ -4,11 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090909">
-<title>Divyan for Secretary</title>
+<title>Divyan for Secretary 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Noto+Sans+Tamil:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
     --black: #090909;
     --off-black: #111111;
@@ -21,9 +20,7 @@
     --muted: rgba(240,237,230,0.45);
     --accent-stroke: rgba(245,197,24,0.35);
   }
-
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--black);
     color: var(--text);
@@ -35,807 +32,413 @@
     text-rendering: optimizeLegibility;
     cursor: none;
   }
+  body.lang-ta .lang { font-family: 'Noto Sans Tamil', 'DM Sans', sans-serif; }
 
-  body.lang-ta .lang {
-    font-family: 'Noto Sans Tamil', 'DM Sans', sans-serif;
-  }
-
-  /* ——— CUSTOM CURSOR ——— */
+  /* ——— CURSOR ——— */
   .cursor {
-    position: fixed;
-    width: 10px; height: 10px;
-    background: var(--yellow);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.08s, width 0.2s, height 0.2s, opacity 0.2s;
+    position: fixed; width: 10px; height: 10px;
+    background: var(--yellow); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
     mix-blend-mode: difference;
   }
   .cursor-ring {
-    position: fixed;
-    width: 36px; height: 36px;
-    border: 1px solid rgba(245,197,24,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), width 0.25s, height 0.25s, opacity 0.2s;
+    position: fixed; width: 36px; height: 36px;
+    border: 1px solid rgba(245,197,24,0.5); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: width 0.25s, height 0.25s, border-color 0.2s;
   }
-  body:hover .cursor { opacity: 1; }
-  a:hover ~ .cursor, button:hover ~ .cursor { width: 16px; height: 16px; }
 
   /* ——— NOISE ——— */
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    content: ''; position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
+    pointer-events: none; z-index: 0; opacity: 0.6;
   }
 
   /* ——— NAV ——— */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
     padding: 1rem 3rem;
-    background: rgba(9,9,9,0);
-    backdrop-filter: blur(0px);
+    background: rgba(9,9,9,0); backdrop-filter: blur(0px);
     border-bottom: 1px solid transparent;
     transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
   }
-  nav.scrolled {
-    background: rgba(9,9,9,0.88);
-    backdrop-filter: blur(14px);
-    border-bottom-color: var(--border);
-  }
-
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    min-width: 0;
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    min-width: 0;
-  }
+  nav.scrolled { background: rgba(9,9,9,0.88); backdrop-filter: blur(14px); border-bottom-color: var(--border); }
+  .nav-left { display: flex; align-items: center; gap: 1rem; min-width: 0; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
   .nav-logo img {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1.5px solid rgba(245,197,24,0.5);
-    box-shadow: 0 0 12px rgba(245,197,24,0.18);
-    flex-shrink: 0;
-    transition: box-shadow 0.3s;
+    width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
+    border: 1.5px solid rgba(245,197,24,0.5); box-shadow: 0 0 12px rgba(245,197,24,0.18);
+    flex-shrink: 0; transition: box-shadow 0.3s;
   }
   .nav-logo:hover img { box-shadow: 0 0 22px rgba(245,197,24,0.4); }
-  .nav-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.15rem;
-    letter-spacing: 0.06em;
-    color: var(--yellow);
-    white-space: nowrap;
-  }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
-  }
+  .nav-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.06em; color: var(--yellow); white-space: nowrap; }
+  .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
   .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    position: relative;
+    color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 400;
+    letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; position: relative;
   }
   .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -3px; left: 0;
-    width: 0; height: 1px;
-    background: var(--yellow);
+    content: ''; position: absolute; bottom: -3px; left: 0;
+    width: 0; height: 1px; background: var(--yellow);
     transition: width 0.25s cubic-bezier(0.22,1,0.36,1);
   }
   .nav-links a:hover { color: var(--yellow); }
   .nav-links a:hover::after { width: 100%; }
 
+  /* ——— LANG TOGGLE ——— */
   .lang-toggle {
     border: 1px solid rgba(245,197,24,0.24);
-    background: rgba(245,197,24,0.08);
-    color: var(--yellow);
-    border-radius: 999px;
-    padding: 4px;
-    cursor: pointer;
-    transition: transform 0.2s, border-color 0.2s, background 0.2s;
+    background: rgba(245,197,24,0.06);
+    border-radius: 999px; padding: 3px; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
     flex-shrink: 0;
   }
-  .lang-toggle:hover {
-    transform: translateY(-1px);
-    border-color: rgba(245,197,24,0.45);
-    background: rgba(245,197,24,0.14);
-  }
+  .lang-toggle:hover { border-color: rgba(245,197,24,0.5); background: rgba(245,197,24,0.12); transform: translateY(-1px); }
   .toggle-track {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 96px;
-    height: 34px;
-    border-radius: 999px;
-    padding: 0 10px;
-    overflow: hidden;
+    position: relative; display: flex; align-items: center; justify-content: space-between;
+    width: 96px; height: 32px; border-radius: 999px; padding: 0 10px; overflow: hidden;
   }
   .toggle-knob {
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 44px;
-    height: 28px;
-    border-radius: 999px;
-    background: var(--yellow);
-    box-shadow: 0 8px 18px rgba(245,197,24,0.25);
-    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
-    z-index: 0;
+    position: absolute; top: 2px; left: 2px;
+    width: 44px; height: 28px; border-radius: 999px;
+    background: var(--yellow); box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1); z-index: 0;
   }
   .toggle-label {
-    position: relative;
-    z-index: 1;
-    width: 50%;
-    text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.88rem;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    transition: color 0.2s;
+    position: relative; z-index: 1; width: 50%; text-align: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.08em;
+    color: var(--muted); transition: color 0.2s; user-select: none;
   }
   body.lang-en .toggle-label-en,
-  body.lang-ta .toggle-label-ta {
-    color: var(--black);
-  }
-  body.lang-ta .toggle-knob {
-    transform: translateX(48px);
-  }
+  body.lang-ta .toggle-label-ta { color: var(--black); font-weight: 700; }
+  body.lang-ta .toggle-knob { transform: translateX(48px); }
 
   /* ——— HERO ——— */
   .hero {
-    position: relative;
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1.08fr 0.92fr;
-    align-items: center;
-    padding: 8rem 3rem 4rem;
-    gap: 4rem;
-    overflow: hidden;
+    position: relative; min-height: 100vh;
+    display: grid; grid-template-columns: 1.08fr 0.92fr;
+    align-items: center; padding: 8rem 3rem 4rem; gap: 4rem; overflow: hidden;
   }
-
   .hero-orb {
-    position: absolute;
-    top: 40%; left: 58%;
-    transform: translate(-50%, -50%);
-    width: 600px; height: 600px;
-    border-radius: 50%;
+    position: absolute; top: 40%; left: 58%; transform: translate(-50%,-50%);
+    width: 600px; height: 600px; border-radius: 50%;
     background: radial-gradient(circle, rgba(245,197,24,0.07) 0%, transparent 70%);
-    pointer-events: none;
-    animation: orb-drift 8s ease-in-out infinite;
+    pointer-events: none; animation: orb-drift 8s ease-in-out infinite;
   }
   @keyframes orb-drift {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
-    33% { transform: translate(-46%, -54%) scale(1.1); opacity: 1; }
-    66% { transform: translate(-54%, -46%) scale(0.95); opacity: 0.6; }
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
+    33% { transform: translate(-46%,-54%) scale(1.1); opacity: 1; }
+    66% { transform: translate(-54%,-46%) scale(0.95); opacity: 0.6; }
   }
-
   .hero-bg-ring {
-    position: absolute;
-    top: 50%; left: 55%;
-    transform: translate(-50%, -50%);
-    width: 700px; height: 700px;
-    border-radius: 50%;
-    border: 1px solid var(--accent-stroke);
-    pointer-events: none;
+    position: absolute; top: 50%; left: 55%; transform: translate(-50%,-50%);
+    width: 700px; height: 700px; border-radius: 50%;
+    border: 1px solid var(--accent-stroke); pointer-events: none;
     animation: pulse-ring 4s ease-in-out infinite;
   }
-  .hero-bg-ring:nth-child(3) {
-    width: 520px; height: 520px;
-    border-color: rgba(245,197,24,0.12);
-    animation-delay: -1.5s;
-  }
+  .hero-bg-ring:nth-child(3) { width: 520px; height: 520px; border-color: rgba(245,197,24,0.12); animation-delay: -1.5s; }
   @keyframes pulse-ring {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.04); }
+    0%,100% { opacity: 0.3; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%,-50%) scale(1.04); }
   }
-
-  .hero-left {
-    position: relative;
-    z-index: 2;
-  }
-
+  .hero-left { position: relative; z-index: 2; }
   .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--yellow-dim);
-    border: 1px solid var(--accent-stroke);
-    border-radius: 100px;
-    padding: 6px 14px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fade-up 0.9s 0.1s cubic-bezier(0.22,1,0.36,1) forwards;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--yellow-dim); border: 1px solid var(--accent-stroke);
+    border-radius: 100px; padding: 6px 14px;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--yellow); margin-bottom: 1.5rem;
+    opacity: 0; animation: fade-up 0.9s 0.1s cubic-bezier(0.22,1,0.36,1) forwards;
   }
   .hero-tag-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--yellow);
-    animation: blink 1.8s ease-in-out infinite;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--yellow);
+    animation: blink 1.8s ease-in-out infinite; flex-shrink: 0;
   }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.15; }
-  }
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(28px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.15; } }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   .hero-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.5rem, 7vw, 6rem);
-    line-height: 0.92;
-    letter-spacing: 0.02em;
-    margin-bottom: 0.3rem;
-    overflow: hidden;
+    font-size: clamp(3.5rem, 7vw, 6rem); line-height: 0.92;
+    letter-spacing: 0.02em; margin-bottom: 0.3rem; overflow: hidden;
   }
-  .hero-name .word {
-    display: block;
-    overflow: hidden;
-  }
+  .hero-name .word { display: block; overflow: hidden; }
   .hero-name .word span {
-    display: inline-block;
-    color: var(--text);
-    opacity: 0;
-    transform: translateY(100%);
+    display: inline-block; color: var(--text);
+    opacity: 0; transform: translateY(100%);
     animation: letter-rise 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
   }
   .hero-name .word.accent span { color: var(--yellow); }
-
+  @keyframes letter-rise { to { opacity: 1; transform: translateY(0); } }
   .hero-role {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fade-up 0.9s 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.2rem,2.5vw,1.8rem);
+    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 2rem;
+    opacity: 0; animation: fade-up 0.9s 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
   }
-
   .hero-proposed {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fade-up 0.9s 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
+    display: flex; gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+    opacity: 0; animation: fade-up 0.9s 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
   }
-  .hero-proposed-item {
-    font-size: 0.78rem;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-  }
+  .hero-proposed-item { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.06em; }
   .hero-proposed-item strong {
-    display: block;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--yellow);
-    margin-bottom: 2px;
-    font-weight: 500;
+    display: block; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--yellow); margin-bottom: 2px; font-weight: 500;
   }
-
   .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--yellow);
-    color: var(--black);
-    padding: 14px 28px;
-    border-radius: 6px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    text-decoration: none;
-    letter-spacing: 0.04em;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--yellow); color: var(--black); padding: 14px 28px; border-radius: 6px;
+    font-weight: 500; font-size: 0.9rem; text-decoration: none; letter-spacing: 0.04em;
     transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
-    opacity: 0;
-    animation: fade-up 0.9s 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
-    position: relative;
-    overflow: hidden;
+    opacity: 0; animation: fade-up 0.9s 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+    position: relative; overflow: hidden;
   }
-  .hero-cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0);
-    transition: background 0.25s;
-  }
+  .hero-cta::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0); transition: background 0.25s; }
   .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(245,197,24,0.35); }
   .hero-cta:hover::before { background: rgba(255,255,255,0.12); }
   .hero-cta svg { transition: transform 0.25s cubic-bezier(0.22,1,0.36,1); }
   .hero-cta:hover svg { transform: translateX(4px); }
 
-  @keyframes letter-rise {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
   .hero-divider {
-    width: 100%;
-    height: 1px;
+    width: 100%; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(245,197,24,0.55), transparent);
     margin: 1.2rem 0 1rem;
-    opacity: 0;
-    animation: fade-up 0.9s 0.82s cubic-bezier(0.22,1,0.36,1) forwards;
+    opacity: 0; animation: fade-up 0.9s 0.82s cubic-bezier(0.22,1,0.36,1) forwards;
   }
   .hero-divider--cta { max-width: 520px; }
-  .hero-divider--photo,
-  .hero-divider--photo-bottom { max-width: 360px; }
+  .hero-divider--photo, .hero-divider--photo-bottom { max-width: 360px; }
 
   .hero-right {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    animation: fade-up 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; animation: fade-up 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
   }
-  .hero-right-inner {
-    width: 100%;
-    max-width: 360px;
-  }
-
+  .hero-right-inner { width: 100%; max-width: 360px; }
   .photo-frame {
-    position: relative;
-    width: min(100%, 360px);
-    aspect-ratio: 4 / 5;
-    margin: 0 auto;
+    position: relative; width: min(100%,360px); aspect-ratio: 4/5; margin: 0 auto;
   }
   .photo-frame::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 14px;
+    content: ''; position: absolute; inset: -2px; border-radius: 14px;
     background: linear-gradient(135deg, var(--yellow) 0%, transparent 50%, var(--yellow) 100%);
-    z-index: -1;
-    opacity: 0.55;
-    animation: border-pulse 3s ease-in-out infinite;
+    z-index: -1; opacity: 0.55; animation: border-pulse 3s ease-in-out infinite;
   }
-  @keyframes border-pulse {
-    0%, 100% { opacity: 0.55; }
-    50% { opacity: 0.85; }
-  }
+  @keyframes border-pulse { 0%,100% { opacity: 0.55; } 50% { opacity: 0.85; } }
   .photo-frame img {
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    display: block;
-    object-fit: cover;
-    object-position: center top;
-    filter: grayscale(10%);
-    transition: filter 0.4s;
+    width: 100%; height: 100%; border-radius: 12px; display: block;
+    object-fit: cover; object-position: center top; filter: grayscale(10%); transition: filter 0.4s;
   }
   .photo-frame:hover img { filter: grayscale(0%); }
-
   .photo-badge {
-    position: absolute;
-    bottom: -16px; left: -20px;
-    background: var(--yellow);
-    color: var(--black);
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    animation: badge-float 3s ease-in-out infinite;
+    position: absolute; bottom: -16px; left: -20px;
+    background: var(--yellow); color: var(--black); padding: 10px 16px; border-radius: 8px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 0.08em;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4); animation: badge-float 3s ease-in-out infinite;
   }
-  @keyframes badge-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
+  @keyframes badge-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
   .hero-about {
     margin-top: 1rem;
     background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-    border-top: 1px solid rgba(245,197,24,0.18);
-    border-bottom: 1px solid rgba(245,197,24,0.18);
-    border-radius: 14px;
-    padding: 1rem 1.05rem;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.18);
-    backdrop-filter: blur(8px);
-    opacity: 0;
-    animation: fade-up 0.9s 0.86s cubic-bezier(0.22,1,0.36,1) forwards;
+    border-top: 1px solid rgba(245,197,24,0.18); border-bottom: 1px solid rgba(245,197,24,0.18);
+    border-radius: 14px; padding: 1rem 1.05rem;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.18); backdrop-filter: blur(8px);
+    opacity: 0; animation: fade-up 0.9s 0.86s cubic-bezier(0.22,1,0.36,1) forwards;
   }
   .hero-about-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.92rem;
-    letter-spacing: 0.12em;
-    color: var(--yellow);
-    margin-bottom: 0.45rem;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.92rem;
+    letter-spacing: 0.12em; color: var(--yellow); margin-bottom: 0.45rem;
   }
-  .hero-about-label::before {
-    content: '';
-    width: 18px;
-    height: 1px;
-    background: rgba(245,197,24,0.7);
+  .hero-about-label::before { content: ''; width: 18px; height: 1px; background: rgba(245,197,24,0.7); }
+  .hero-about p { color: rgba(240,237,230,0.78); font-size: 0.94rem; line-height: 1.7; font-weight: 300; }
+
+  /* ——— FLORAL DIVIDER ——— */
+  .floral-divider {
+    width: 100%; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0.4rem 0;
+    position: relative; z-index: 1;
   }
-  .hero-about p {
-    color: rgba(240,237,230,0.78);
-    font-size: 0.94rem;
-    line-height: 1.7;
-    font-weight: 300;
+  .floral-divider svg { width: 100%; max-width: 900px; height: 40px; overflow: visible; }
+
+  /* ——— MARQUEE ——— */
+  .marquee-strip {
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: var(--off-black); padding: 0.9rem 0; overflow: hidden; position: relative; z-index: 1;
   }
+  .marquee-track {
+    display: flex; gap: 3rem; white-space: nowrap;
+    animation: marquee 28s linear infinite; width: max-content;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem;
+    letter-spacing: 0.12em; color: var(--muted); transition: color 0.2s; cursor: default;
+  }
+  .marquee-item:hover { color: var(--yellow); }
+  .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--yellow); opacity: 0.4; flex-shrink: 0; }
 
   /* ——— SECTION SHARED ——— */
   section { padding: 6rem 3rem; position: relative; z-index: 1; }
   .section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.72rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--yellow);
-    margin-bottom: 0.8rem;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--yellow); margin-bottom: 0.8rem;
   }
-  .section-label::before {
-    content: '';
-    width: 24px; height: 1px;
-    background: var(--yellow);
-  }
-
+  .section-label::before { content: ''; width: 24px; height: 1px; background: var(--yellow); }
   .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    letter-spacing: 0.03em;
-    line-height: 1;
-    margin-bottom: 1rem;
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem,5vw,4rem);
+    letter-spacing: 0.03em; line-height: 1; margin-bottom: 1rem;
   }
-
   .section-subtitle {
-    color: var(--muted);
-    font-size: 1rem;
-    max-width: 560px;
-    line-height: 1.65;
-    margin-bottom: 3.5rem;
-    font-weight: 300;
+    color: var(--muted); font-size: 1rem; max-width: 560px;
+    line-height: 1.65; margin-bottom: 3.5rem; font-weight: 300;
   }
 
   /* ——— PILLARS ——— */
   .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.5px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
   }
   .pillar-card {
-    background: var(--card-bg);
-    padding: 2.5rem 2rem;
-    transition: background 0.3s;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
+    background: var(--card-bg); padding: 2.5rem 2rem;
+    transition: background 0.3s; cursor: default; position: relative; overflow: hidden;
   }
   .pillar-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--yellow);
-    transform: scaleX(0);
-    transform-origin: left;
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--yellow);
+    transform: scaleX(0); transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
   }
   .pillar-card:hover { background: #1b1b1b; }
   .pillar-card:hover::after { transform: scaleX(1); }
-
   .pillar-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem;
-    color: rgba(245,197,24,0.1);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s;
+    font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
+    color: rgba(245,197,24,0.1); line-height: 1; margin-bottom: 0.5rem; transition: color 0.3s;
   }
   .pillar-card:hover .pillar-number { color: rgba(245,197,24,0.22); }
-
-  .pillar-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.05em;
-    color: var(--yellow);
-    margin-bottom: 0.5rem;
-  }
-  .pillar-tagline {
-    font-size: 0.82rem;
-    color: var(--muted);
-    font-weight: 300;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-  }
-  .pillar-items {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .pillar-item {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
+  .pillar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--yellow); margin-bottom: 0.5rem; }
+  .pillar-tagline { font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-bottom: 1.5rem; line-height: 1.5; }
+  .pillar-items { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .pillar-item { display: flex; gap: 12px; align-items: flex-start; }
   .pillar-item-icon {
-    width: 22px; height: 22px;
-    flex-shrink: 0;
-    background: var(--yellow-dim);
-    border: 1px solid var(--accent-stroke);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1px;
-    transition: background 0.2s, border-color 0.2s;
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--yellow-dim); border: 1px solid var(--accent-stroke);
+    border-radius: 5px; display: flex; align-items: center; justify-content: center;
+    margin-top: 1px; transition: background 0.2s, border-color 0.2s;
   }
-  .pillar-card:hover .pillar-item-icon {
-    background: rgba(245,197,24,0.18);
-    border-color: rgba(245,197,24,0.5);
-  }
+  .pillar-card:hover .pillar-item-icon { background: rgba(245,197,24,0.18); border-color: rgba(245,197,24,0.5); }
   .pillar-item-icon svg { width: 12px; height: 12px; fill: var(--yellow); }
-  .pillar-item-content h4 {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-  .pillar-item-content p {
-    font-size: 0.78rem;
-    color: var(--muted);
-    line-height: 1.55;
-    font-weight: 300;
-  }
+  .pillar-item-content h4 { font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+  .pillar-item-content p { font-size: 0.78rem; color: var(--muted); line-height: 1.55; font-weight: 300; }
 
   /* ——— EXPERIENCE ——— */
-  .exp-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    max-width: 900px;
-  }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 900px; }
   .exp-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.5rem 1.8rem;
-    transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
-    position: relative;
-    overflow: hidden;
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.5rem 1.8rem; transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+    position: relative; overflow: hidden;
   }
   .exp-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--yellow);
-    opacity: 0;
-    transition: opacity 0.4s;
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: var(--yellow); opacity: 0; transition: opacity 0.3s;
   }
   .exp-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: radial-gradient(circle at 0% 50%, rgba(245,197,24,0.04) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s;
+    opacity: 0; transition: opacity 0.3s;
   }
-  .exp-card:hover {
-    border-color: var(--accent-stroke);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-  }
+  .exp-card:hover { border-color: var(--accent-stroke); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
   .exp-card:hover::before { opacity: 1; }
   .exp-card:hover::after { opacity: 1; }
-
-  .exp-role {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--yellow);
-    margin-bottom: 3px;
-    letter-spacing: 0.03em;
-  }
-  .exp-org {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 0.6rem;
-  }
-  .exp-detail {
-    font-size: 0.78rem;
-    color: var(--muted);
-    line-height: 1.55;
-    font-weight: 300;
-  }
-
-  /* ——— MARQUEE STRIP ——— */
-  .marquee-strip {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--off-black);
-    padding: 1rem 0;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 3rem;
-    white-space: nowrap;
-    animation: marquee 22s linear infinite;
-    width: max-content;
-  }
-  .marquee-track:hover { animation-play-state: paused; }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  .marquee-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-  .marquee-item:hover { color: var(--yellow); }
-  .marquee-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--yellow);
-    opacity: 0.3;
-    flex-shrink: 0;
-  }
+  .exp-role { font-size: 0.82rem; font-weight: 500; color: var(--yellow); margin-bottom: 3px; letter-spacing: 0.03em; }
+  .exp-org { font-size: 0.95rem; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
+  .exp-detail { font-size: 0.78rem; color: var(--muted); line-height: 1.55; font-weight: 300; }
 
   /* ——— VOTE BANNER ——— */
   .vote-banner {
-    position: relative;
-    padding: 6rem 3rem 4rem;
-    text-align: center;
-    overflow: hidden;
+    position: relative; padding: 6rem 3rem 5rem;
+    text-align: center; overflow: hidden;
   }
   .vote-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse at center, rgba(245,197,24,0.07) 0%, transparent 65%);
     pointer-events: none;
   }
   .vote-ring {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    border: 1px dashed rgba(245,197,24,0.15);
-    pointer-events: none;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 500px; height: 500px; border-radius: 50%;
+    border: 1px dashed rgba(245,197,24,0.15); pointer-events: none;
     animation: spin-slow 30s linear infinite;
   }
-  .vote-ring-2 {
-    width: 360px; height: 360px;
-    border: 1px dashed rgba(245,197,24,0.1);
-    animation-direction: reverse;
-    animation-duration: 20s;
+  .vote-ring-2 { width: 360px; height: 360px; border: 1px dashed rgba(245,197,24,0.1); animation-direction: reverse; animation-duration: 20s; }
+  @keyframes spin-slow { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+  .vote-big-link {
+    display: inline-block; text-decoration: none;
+    position: relative; cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
   }
-  @keyframes spin-slow {
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-  }
+  .vote-big-link:hover { transform: scale(1.02); }
+  .vote-big-link:hover .vote-big { background: linear-gradient(to bottom, #ffffff 20%, rgba(245,197,24,0.5) 100%); -webkit-background-clip: text; background-clip: text; }
   .vote-big {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 13vw, 11rem);
-    letter-spacing: 0.05em;
-    line-height: 0.88;
+    font-size: clamp(4rem,13vw,11rem); letter-spacing: 0.05em; line-height: 0.88;
     background: linear-gradient(to bottom, #F5C518 20%, rgba(245,197,24,0.18) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1.5rem;
-    position: relative;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 0.5rem; position: relative;
+    transition: background 0.3s;
   }
+  .vote-cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--yellow); color: var(--black);
+    padding: 14px 36px; border-radius: 6px; border: none;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+    letter-spacing: 0.1em; text-decoration: none; cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+    margin-top: 1.5rem; position: relative;
+  }
+  .vote-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(245,197,24,0.4); background: #fff; }
+  .vote-cta-btn svg { transition: transform 0.25s cubic-bezier(0.22,1,0.36,1); }
+  .vote-cta-btn:hover svg { transform: translateX(4px); }
   .vote-meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-top: 1.5rem;
+    font-size: 0.8rem; color: var(--muted); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-top: 1.8rem;
   }
-  .signature-line {
-    margin-top: 1.1rem;
-    color: rgba(240,237,230,0.66);
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
+  .signature-line { margin-top: 0.8rem; color: rgba(240,237,230,0.5); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
 
   /* ——— FOOTER ——— */
   footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    background: var(--off-black);
+    border-top: 1px solid var(--border); padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; background: var(--off-black);
   }
-  .footer-left {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.08em;
-    color: var(--yellow);
+  .footer-left { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.08em; color: var(--yellow); }
+  .footer-right { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; text-align: right; }
+  .footer-social {
+    display: flex; align-items: center; gap: 0.75rem;
   }
-  .footer-right {
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    text-align: right;
+  .footer-social a {
+    display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--card-bg);
+    color: var(--muted); text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.22,1,0.36,1);
   }
+  .footer-social a:hover { border-color: var(--accent-stroke); background: var(--yellow-dim); color: var(--yellow); transform: translateY(-2px); }
+  .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
 
   /* ——— SCROLL REVEAL ——— */
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
-  }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1); }
   .reveal.visible { opacity: 1; transform: none; }
-
-  /* ——— STAGGER CHILDREN ——— */
-  .stagger > * {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-  }
+  .stagger > * { opacity: 0; transform: translateY(18px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
   .stagger.visible > * { opacity: 1; transform: none; }
   .stagger.visible > *:nth-child(1) { transition-delay: 0s; }
   .stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
@@ -847,120 +450,60 @@
   @media (max-width: 1100px) {
     .pillars-grid, .exp-grid { grid-template-columns: 1fr; }
   }
-
   @media (max-width: 900px) {
     body { cursor: auto; }
     .cursor, .cursor-ring { display: none; }
-
-    nav {
-      padding: 0.9rem 1rem;
-      gap: 0.75rem;
-    }
+    nav { padding: 0.9rem 1rem; gap: 0.75rem; }
     .nav-name { font-size: 1rem; }
     .nav-links { display: none; }
-
-    .hero {
-      grid-template-columns: 1fr;
-      min-height: auto;
-      padding: 6.9rem 1rem 2.25rem;
-      gap: 1.6rem;
-    }
-
+    .hero { grid-template-columns: 1fr; min-height: auto; padding: 6.9rem 1rem 2.25rem; gap: 1.6rem; }
     .hero-bg-ring { left: 50%; width: 520px; height: 520px; opacity: 0.4; }
     .hero-bg-ring:nth-child(3) { width: 360px; height: 360px; }
-
     .hero-left { text-align: center; }
     .hero-tag { font-size: 0.68rem; padding: 6px 12px; }
-    .hero-name { font-size: clamp(3rem, 15vw, 4.8rem); }
-    .hero-role { font-size: clamp(1rem, 5vw, 1.5rem); margin-bottom: 1.3rem; }
+    .hero-name { font-size: clamp(3rem,15vw,4.8rem); }
+    .hero-role { font-size: clamp(1rem,5vw,1.5rem); margin-bottom: 1.3rem; }
     .hero-proposed { justify-content: center; gap: 1rem; margin-bottom: 1.35rem; }
     .hero-cta { padding: 13px 22px; width: 100%; max-width: 320px; justify-content: center; }
-
-    .hero-divider--cta,
-    .hero-divider--photo,
-    .hero-divider--photo-bottom {
-      max-width: 320px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-right {
-      justify-content: center;
-      margin-top: 0.25rem;
-    }
-    .hero-right-inner {
-      width: 100%;
-      max-width: 520px;
-    }
-    .photo-frame { width: min(78vw, 290px); }
-    .photo-badge {
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: -14px;
-      font-size: 0.8rem;
-      padding: 8px 14px;
-      white-space: nowrap;
-    }
-
-    .hero-about {
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
-    }
-
+    .hero-divider--cta, .hero-divider--photo, .hero-divider--photo-bottom { max-width: 320px; margin-left: auto; margin-right: auto; }
+    .hero-right { justify-content: center; margin-top: 0.25rem; }
+    .hero-right-inner { width: 100%; max-width: 520px; }
+    .photo-frame { width: min(78vw,290px); }
+    .photo-badge { left: 50%; transform: translateX(-50%); bottom: -14px; font-size: 0.8rem; padding: 8px 14px; white-space: nowrap; }
+    .hero-about { max-width: 520px; margin-left: auto; margin-right: auto; text-align: left; }
     section { padding: 3.6rem 1rem; }
     .section-subtitle { max-width: none; margin-bottom: 2rem; font-size: 0.95rem; }
     .pillar-card { padding: 2rem 1.1rem; }
     .pillar-number { font-size: 3.5rem; }
     .exp-card { padding: 1.25rem 1.1rem; }
-    .vote-banner { padding: 4.5rem 1rem 3rem; }
+    .vote-banner { padding: 4.5rem 1rem 3.5rem; }
     .vote-ring { width: 320px; height: 320px; }
     .vote-ring-2 { width: 220px; height: 220px; }
     footer { flex-direction: column; text-align: center; padding: 1.5rem 1rem; }
     .footer-right { text-align: center; }
+    .footer-social { justify-content: center; }
   }
-
   @media (max-width: 420px) {
     .nav-logo img { width: 38px; height: 38px; }
     .nav-name { font-size: 0.92rem; letter-spacing: 0.04em; }
+    .toggle-track { width: 88px; height: 30px; }
+    .toggle-knob { width: 40px; height: 26px; }
+    body.lang-ta .toggle-knob { transform: translateX(44px); }
     .hero { padding-top: 6.6rem; }
-
-    .toggle-track {
-      width: 88px;
-      height: 32px;
-    }
-    .toggle-knob {
-      width: 40px;
-      height: 26px;
-    }
-    body.lang-ta .toggle-knob {
-      transform: translateX(44px);
-    }
-
-    .hero-proposed {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
+    .hero-proposed { flex-direction: column; align-items: center; gap: 0.75rem; }
     .hero-proposed-item { text-align: center; }
-
-    .hero-about {
-      padding: 0.95rem 0.95rem;
-    }
-    .hero-about p {
-      font-size: 0.9rem;
-    }
-
+    .hero-about { padding: 0.95rem; }
+    .hero-about p { font-size: 0.9rem; }
     .pillar-item { gap: 10px; }
   }
 </style>
 </head>
-<body>
+<body class="lang-en">
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- NAV -->
 <nav id="nav">
   <div class="nav-left">
     <a class="nav-logo" href="#top" aria-label="Divyan for Secretary">
@@ -968,14 +511,12 @@
       <span class="nav-name">Divyan for Secretary</span>
     </a>
   </div>
-
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#pillars">Manifesto</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#vote">Vote</a></li>
     </ul>
-
     <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language" aria-pressed="false">
       <span class="toggle-track">
         <span class="toggle-knob"></span>
@@ -986,6 +527,7 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero" id="top">
   <div class="hero-orb"></div>
   <div class="hero-bg-ring"></div>
@@ -996,14 +538,11 @@
       <div class="hero-tag-dot"></div>
       Cambridge University Tamil Society · Secretary 2026
     </div>
-
     <h1 class="hero-name" aria-label="Divyan Ranjithakumar">
       <span class="word" data-word="DIVYAN"></span>
       <span class="word accent" data-word="RANJITHAKUMAR"></span>
     </h1>
-
     <p class="hero-role lang" data-en="Running for Secretary" data-ta="செயலாளர் பதவிக்கு">Running for Secretary</p>
-
     <div class="hero-proposed">
       <div class="hero-proposed-item">
         <strong>Proposed by</strong>Pahalavan
@@ -1012,12 +551,10 @@
         <strong>Seconded by</strong>Lithikga
       </div>
     </div>
-
     <a class="hero-cta" href="#pillars">
       <span class="lang cta-text" data-en="See the Vision" data-ta="திட்டத்தைப் பாருங்கள்">See the Vision</span>
       <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M7 0L5.59 1.41L10.17 6H0v2h10.17l-4.58 4.59L7 14l7-7-7-7z"/></svg>
     </a>
-
     <div class="hero-divider hero-divider--cta"></div>
   </div>
 
@@ -1027,27 +564,79 @@
         <img src="https://lh3.googleusercontent.com/rd-d/ALs6j_GpTpywqC8xruRRqQAWH9UtnXGc61ZXgjXJO3i_P0jWfDTXCWz37XGv25Cg8dFybJVngGAgbYd76In1S0hcnVknbSaI9ZjZz-UmWN24kF0G5weI4oubyIB-rXHQA6fXrz-QZuLJgm_rnbL5Zhs7E43HnCYTS-ASrnCpDgrrHqD2ZbrwXxvQgUZQKbnHUDlxzG5NMM8XxY1at_HvEQqBzYrD4RyX5jBhp8h7jaJbZqOiFf2a9IBRRBV1_thjCQbPHUu-LGrQLK5__ITtE5Bptpt-9UTvO5fj4oB7mle0NDL396zzIRCORLmqYZPFya2tkIqi8Z0ZY0MffOvSMxBT63M4KgnmdqwxAF1ZIZluay7AlAsTr2H37PgGRbPccxpHGH3ecf2hAEcjdaP2rg2eGdaUTMtsh5otFcTDcrD__8mF_zTRMJ5mfeK9KNyw06vWd_9zbLxl7q6d6xLIDl9_cAYSbfaWSdwDRMqC97XsQ6AqTQI61vPeSuGWdAL-RZ1CiAqdKN1shkYacEYwoZR4ph7kFjP5oqdxVoAjtgCJ1SsUa61KoKw2ZGmcgeCHOwvf9DtUZzY6dkw583M-2dgfrqGd4vpNqi8xVto0T_3Foj6v-0wk4CM-lCJ8MHXF8aal1E1kDHtcXIoyyKbys27_OPI1A6le6nb-Bltl7IDQ602i78td6pS3f_TAgVoo2aLDkPGGriWuzS1gRNJ30Cuu4d_Mc6XflPpUaleLB3zGtq_076Q6sVaxyPiHaSP3a7qD19IFa62QIEIojFWbzJVgxqmSb0cmTUML6KKslqGsm6-UZqg92tdoDKpHw55TV124MKuaXZBI_lI-tRX--73xEQW6v8Bud0II71MyKQ9gDCTIWzCiLM7Z-GGDiZPDEOk8xDTU5G6AV3vS01KZ7AkL5lqcz3nEuZXwKkXrAG7rZurkrQoewKTSK5oGxpKiU-wgz2W7TE4ywHD1RuiM-0dUotSQFZrTsgBA2unFH87TEgvU13wIzdInzFhpmdM9rtxfFmmP9OMnFrsFr04yYy2sWa1sCEzjYScjx_YgKLvPKwUNqGTKH90SM9lEwOB-XWEskLeNpJzPhsBtE1wBa_B1p1TG8hJht9vSq_Q_0_TouqwUFVt02z1ZTJFw0lSgZe9wypdPsYufnDZ1hU_ASeNJjcLNq3DOAz5Q7i49gTzy6t2tCSWA_SHO-0QelbCklu8Q68mscAfIfCs=w1852-h913?auditContext=prefetch" alt="Divyan Ranjithakumar" loading="eager" decoding="async">
         <div class="photo-badge">Secretary Candidate</div>
       </div>
-
       <div class="hero-divider hero-divider--photo"></div>
-
       <div class="hero-about">
         <div class="hero-about-label lang" data-en="About Me" data-ta="என்னைப் பற்றி">About Me</div>
         <p class="lang"
-           data-en="I have a track record of building student communities that actually last — from growing memberships and managing communications to handling budgets, handovers, and partnerships. I care about making TSoc feel organised, purposeful, and genuinely connected, while keeping it ambitious enough to leave behind something better than what we started with."
+           data-en="Anaivarukkum Vanakkam. My name is Divyan (திவ்யன்) and I'm a first-year law student at Clare. This year, I'm keen on taking a more active role within TSoc. Having been part of the community, I've seen how much the society adds both socially and culturally, and I want to contribute to making that experience as smooth and well-run as possible. I'm particularly drawn to the Secretary role because it sits at the centre of how the society functions — keeping things organised, ensuring clear communication, and helping everything run smoothly behind the scenes."
            data-ta="மாணவர் சமூகங்களை நீடிக்கக்கூடிய முறையில் வளர்த்தல், தொடர்புகளை நிர்வகித்தல், பட்ஜெட் மற்றும் handover-களை கையாளுதல், கூட்டாண்மைகளை அமைத்தல் ஆகியவற்றில் எனக்கு அனுபவம் உள்ளது. TSoc-ஐ ஒழுங்கான, நோக்கமுள்ள, உண்மையாக இணைந்த சமூகமாக மாற்றி, நாம் தொடங்கியதைவிட சிறந்த ஒன்றை விட்டுச் செல்லவேண்டும் என்பதே என் நோக்கம்.">
-          I have a track record of building student communities that actually last — from growing memberships and managing communications to handling budgets, handovers, and partnerships. I care about making TSoc feel organised, purposeful, and genuinely connected, while keeping it ambitious enough to leave behind something better than what we started with.
+          Anaivarukkum Vanakkam. My name is Divyan (திவ்யன்) and I'm a first-year law student at Clare. This year, I'm keen on taking a more active role within TSoc. Having been part of the community, I've seen how much the society adds both socially and culturally, and I want to contribute to making that experience as smooth and well-run as possible. I'm particularly drawn to the Secretary role because it sits at the centre of how the society functions — keeping things organised, ensuring clear communication, and helping everything run smoothly behind the scenes.
         </p>
       </div>
-
       <div class="hero-divider hero-divider--photo-bottom"></div>
     </div>
   </div>
 </div>
 
+<!-- FLORAL DIVIDER -->
+<div class="floral-divider" aria-hidden="true">
+  <svg viewBox="0 0 900 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <radialGradient id="petalGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#F5C518" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#F5C518" stop-opacity="0.3"/>
+      </radialGradient>
+    </defs>
+    <!-- centre line -->
+    <line x1="0" y1="20" x2="900" y2="20" stroke="rgba(245,197,24,0.18)" stroke-width="1"/>
+    <!-- small diamond repeats -->
+    <g id="motif">
+      <!-- petals -->
+      <ellipse cx="0" cy="20" rx="6" ry="2.5" fill="url(#petalGrad)" opacity="0.7"/>
+      <ellipse cx="0" cy="20" rx="2.5" ry="6" fill="url(#petalGrad)" opacity="0.7"/>
+      <ellipse cx="0" cy="20" rx="6" ry="2.5" transform="rotate(45,0,20)" fill="url(#petalGrad)" opacity="0.5"/>
+      <ellipse cx="0" cy="20" rx="6" ry="2.5" transform="rotate(-45,0,20)" fill="url(#petalGrad)" opacity="0.5"/>
+      <circle cx="0" cy="20" r="2" fill="#F5C518" opacity="0.9"/>
+    </g>
+    <!-- left side dots -->
+    <circle cx="80"  cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <circle cx="130" cy="20" r="1" fill="#F5C518" opacity="0.2"/>
+    <circle cx="175" cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <circle cx="220" cy="20" r="1" fill="#F5C518" opacity="0.2"/>
+    <!-- left motif -->
+    <use href="#motif" transform="translate(270,0)"/>
+    <!-- left sub-dots -->
+    <circle cx="320" cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <circle cx="360" cy="20" r="1" fill="#F5C518" opacity="0.2"/>
+    <circle cx="400" cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <!-- CENTRE MOTIF (larger) -->
+    <g transform="translate(450,0) scale(1.5)">
+      <ellipse cx="0" cy="13.3" rx="7" ry="3" fill="url(#petalGrad)" opacity="0.8"/>
+      <ellipse cx="0" cy="13.3" rx="3" ry="7" fill="url(#petalGrad)" opacity="0.8"/>
+      <ellipse cx="0" cy="13.3" rx="7" ry="3" transform="rotate(45,0,13.3)" fill="url(#petalGrad)" opacity="0.55"/>
+      <ellipse cx="0" cy="13.3" rx="7" ry="3" transform="rotate(-45,0,13.3)" fill="url(#petalGrad)" opacity="0.55"/>
+      <circle cx="0" cy="13.3" r="2.5" fill="#F5C518" opacity="1"/>
+    </g>
+    <!-- right sub-dots -->
+    <circle cx="500" cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <circle cx="540" cy="20" r="1" fill="#F5C518" opacity="0.2"/>
+    <circle cx="580" cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <!-- right motif -->
+    <use href="#motif" transform="translate(630,0)"/>
+    <!-- right side dots -->
+    <circle cx="680" cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <circle cx="725" cy="20" r="1" fill="#F5C518" opacity="0.2"/>
+    <circle cx="770" cy="20" r="1.5" fill="#F5C518" opacity="0.25"/>
+    <circle cx="820" cy="20" r="1" fill="#F5C518" opacity="0.2"/>
+  </svg>
+</div>
+
+<!-- MARQUEE -->
 <div class="marquee-strip">
   <div class="marquee-track" id="marqueeTrack"></div>
 </div>
 
+<!-- PILLARS -->
 <section id="pillars">
   <div class="section-label lang" data-en="Manifesto · அறிக்கை" data-ta="அறிக்கை · Manifesto">Manifesto · அறிக்கை</div>
   <h2 class="section-title">Three Pillars</h2>
@@ -1058,46 +647,42 @@
   </p>
 
   <div class="pillars-grid">
+
+    <!-- PILLAR 1 -->
     <div class="pillar-card">
       <div class="pillar-number">01</div>
       <div class="pillar-title">Professionalise</div>
       <p class="pillar-tagline lang"
          data-en="TSoc deserves proper infrastructure. Right now too much lives in people's heads or in old WhatsApp chats — that needs to change."
-         data-ta="TSoc-க்கு உறுதியான அமைப்பு தேவை. இப்போது அதிகமானது மக்களின் மனதில் அல்லது பழைய WhatsApp chats-இல் சிக்கியுள்ளது — அதுதான் மாற வேண்டும்.">
+         data-ta="TSoc-க்கு உறுதியான அமைப்பு தேவை. இப்போது அதிகமானது மக்களின் மனதில் அல்லது பழைய WhatsApp chats-இல் சிக்கியுள்ளது.">
         TSoc deserves proper infrastructure. Right now too much lives in people's heads or in old WhatsApp chats — that needs to change.
       </p>
       <ul class="pillar-items">
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M2 2h10v10H2z" opacity=".3"/><path d="M1 1h5v5H1zm7 0h5v5h-5zm-7 7h5v5H1zm7 0h5v5h-5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>A real TSoc website</h4>
-            <p>One place for memberships, event tickets, and information — so members aren't hunting across five different group chats to find out what's on.</p>
+            <h4>A TSoc Website</h4>
+            <p>I would design a new website for TSoc to use, integrating all the functions it may need — one place for memberships, event tickets, information and more. A central digital hub for TSoc.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" opacity=".3"/><path d="M7 4v3l2 2-1 1-2.5-2.5V4h1.5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Actual payment systems</h4>
-            <p>No more bank transfers. Stripe-integrated ticketing means faster payments, automatic records, and far less admin stress for whoever's treasurer.</p>
+            <h4>Integrated Payment Systems</h4>
+            <p>No more bank-transferring the Treasurer. Set up a TSoc bank account and integrate Stripe on the new website for memberships and ticketing — faster payments, automatic records, far less admin stress.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="1" y="4" width="12" height="7" rx="1" opacity=".3"/><path d="M4 4V3a3 3 0 016 0v1"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Slack for committee comms</h4>
-            <p>Separate channels for events, publicity, and sponsorships — so conversations are searchable, nothing gets buried, and new committee members can actually get up to speed.</p>
-          </div>
-        </li>
-        <li class="pillar-item">
-          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M1 3h12M1 7h9M1 11h6" stroke-width="1.5" stroke="currentColor" fill="none"/></svg></div>
-          <div class="pillar-item-content">
-            <h4>Institutional memory</h4>
-            <p>Proper written handovers, contact lists, and event templates — so the next committee isn't starting from zero and we stop losing things when people graduate.</p>
+            <h4>Corporate Committee Culture</h4>
+            <p>Treat TSoc like an organisation, not just a group of friends in a chat. Integrate Slack — separate channels for events, publicity, and sponsorships — so conversations are searchable and nothing gets buried.</p>
           </div>
         </li>
       </ul>
     </div>
 
+    <!-- PILLAR 2 -->
     <div class="pillar-card">
       <div class="pillar-number">02</div>
       <div class="pillar-title">CPD & Events</div>
@@ -1110,34 +695,35 @@
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="4" r="2.5" opacity=".3"/><path d="M2 12c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Careers events that feel useful</h4>
-            <p>Termly sessions with Tamil professionals in law, finance, medicine, and tech — speakers who actually look like us, talking about paths we might want to take.</p>
+            <h4>Careers Events</h4>
+            <p>TSoc should be a community where we support each other in all ways. From SJT/CV sessions to termly networking with Tamil professionals in law, finance, medicine and tech — with potential collabs with TPN (Tamil Professionals Network).</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>More events like the civil war discussion</h4>
-            <p>Space to talk honestly about Tamil history and current affairs — with proper framing and context circulated beforehand so it's an informed conversation, not just noise.</p>
+            <h4>Cultural and Historical Depth</h4>
+            <p>Space to talk honestly and in depth about Tamil history, culture and current affairs — with proper framing and context circulated beforehand so it's an informed conversation.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z" opacity=".3"/><path d="M4 13h6M7 9v4"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Charity with context</h4>
+            <h4>Charity With Context</h4>
             <p>Every charity event should explain where the money is going and why it matters. Post-event updates so members can see the actual impact of what they gave.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1" opacity=".3"/><path d="M5 7h4M7 5v4"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Keeping older members in the picture</h4>
-            <p>Dinners, collaborative socials, networking events — a calendar that isn't just aimed at first-years, because TSoc should feel relevant through all three years.</p>
+            <h4>Events for Everyone</h4>
+            <p>Fresh events — dinners, collaborative socials, networking — a calendar that isn't just aimed at first-years, because TSoc should feel relevant through all three years.</p>
           </div>
         </li>
       </ul>
     </div>
 
+    <!-- PILLAR 3 -->
     <div class="pillar-card">
       <div class="pillar-number">03</div>
       <div class="pillar-title">Community & Continuity</div>
@@ -1150,45 +736,84 @@
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="2" y="6" width="10" height="6" rx="1" opacity=".3"/><path d="M5 6V4a2 2 0 014 0v2"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Alumni directory</h4>
+            <h4>Alumni Directory</h4>
             <p>A searchable database so members can find each other for mentorship, job referrals, or just staying in touch — built properly so it doesn't die after one year.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Actual sponsorship pipeline</h4>
+            <h4>Sponsorship Pipeline</h4>
             <p>Approach Tamil and South Asian-owned businesses with a proper pitch — clear value for event exposure, branding, and community reach, not just a cold email.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="4" cy="7" r="2" opacity=".3"/><circle cx="10" cy="7" r="2" opacity=".3"/><path d="M6 7h2"/></svg></div>
           <div class="pillar-item-content">
-            <h4>UK-wide Tamil student network</h4>
-            <p>Joint events with TSocs at Oxford, UCL, and beyond — so Cambridge isn't operating in isolation and we're part of something bigger.</p>
+            <h4>Society Collaborations</h4>
+            <p>Joint events with other Cambridge societies, but nationally too — TSocs at Oxford, UCL and beyond — so Cambridge isn't operating in isolation.</p>
           </div>
         </li>
         <li class="pillar-item">
           <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="9" rx="1" opacity=".3"/><path d="M4 12h6M7 11v1"/></svg></div>
           <div class="pillar-item-content">
-            <h4>Monthly newsletter</h4>
-            <p>A short, actually-worth-reading email — society news, Tamil current affairs, and a quick language or cultural bite. Something you open, not something you delete.</p>
+            <h4>Monthly Newsletter</h4>
+            <p>A short, aesthetic, actually-worth-reading email — society news, Tamil current affairs, and a quick language or cultural bite. Something you open, not something you delete.</p>
+          </div>
+        </li>
+        <li class="pillar-item">
+          <div class="pillar-item-icon"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" opacity=".3"/><path d="M4 7c0-1.7 1.3-3 3-3s3 1.3 3 3-1.3 3-3 3-3-1.3-3-3"/></svg></div>
+          <div class="pillar-item-content">
+            <h4>An Open Door Policy</h4>
+            <p>TSoc should actively welcome non-regular Tamils and non-Tamils alike — regardless of background or inclination. It should be a place for anyone genuinely interested in Tamil culture, not just those who already feel they belong.</p>
           </div>
         </li>
       </ul>
     </div>
+
   </div>
 </section>
 
+<!-- FLORAL DIVIDER (mirrored) -->
+<div class="floral-divider" aria-hidden="true" style="transform: scaleY(-1);">
+  <svg viewBox="0 0 900 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <line x1="0" y1="20" x2="900" y2="20" stroke="rgba(245,197,24,0.18)" stroke-width="1"/>
+    <g id="motif2">
+      <ellipse cx="0" cy="20" rx="6" ry="2.5" fill="#F5C518" opacity="0.5"/>
+      <ellipse cx="0" cy="20" rx="2.5" ry="6" fill="#F5C518" opacity="0.5"/>
+      <ellipse cx="0" cy="20" rx="6" ry="2.5" transform="rotate(45,0,20)" fill="#F5C518" opacity="0.35"/>
+      <ellipse cx="0" cy="20" rx="6" ry="2.5" transform="rotate(-45,0,20)" fill="#F5C518" opacity="0.35"/>
+      <circle cx="0" cy="20" r="2" fill="#F5C518" opacity="0.8"/>
+    </g>
+    <circle cx="130" cy="20" r="1.5" fill="#F5C518" opacity="0.2"/>
+    <circle cx="225" cy="20" r="1" fill="#F5C518" opacity="0.18"/>
+    <use href="#motif2" transform="translate(270,0)"/>
+    <circle cx="360" cy="20" r="1.5" fill="#F5C518" opacity="0.2"/>
+    <circle cx="410" cy="20" r="1" fill="#F5C518" opacity="0.18"/>
+    <g transform="translate(450,0) scale(1.5)">
+      <ellipse cx="0" cy="13.3" rx="7" ry="3" fill="#F5C518" opacity="0.6"/>
+      <ellipse cx="0" cy="13.3" rx="3" ry="7" fill="#F5C518" opacity="0.6"/>
+      <ellipse cx="0" cy="13.3" rx="7" ry="3" transform="rotate(45,0,13.3)" fill="#F5C518" opacity="0.4"/>
+      <ellipse cx="0" cy="13.3" rx="7" ry="3" transform="rotate(-45,0,13.3)" fill="#F5C518" opacity="0.4"/>
+      <circle cx="0" cy="13.3" r="2.5" fill="#F5C518" opacity="0.9"/>
+    </g>
+    <circle cx="490" cy="20" r="1.5" fill="#F5C518" opacity="0.2"/>
+    <circle cx="540" cy="20" r="1" fill="#F5C518" opacity="0.18"/>
+    <use href="#motif2" transform="translate(630,0)"/>
+    <circle cx="720" cy="20" r="1.5" fill="#F5C518" opacity="0.2"/>
+    <circle cx="775" cy="20" r="1" fill="#F5C518" opacity="0.18"/>
+  </svg>
+</div>
+
+<!-- EXPERIENCE -->
 <section id="experience">
-  <div class="section-label">Why Me · ஏன் நான்</div>
+  <div class="section-label lang" data-en="Why Me · ஏன் நான்" data-ta="ஏன் நான் · Why Me">Why Me · ஏன் நான்</div>
   <h2 class="section-title">The Experience</h2>
   <p class="section-subtitle lang"
-     data-en="I've run societies before — built them from scratch, grown membership, and made them last."
+     data-en="I've run societies before — collaborated, grown membership, and made them last."
      data-ta="நான் சமூகங்களை தொடங்கி வளர்த்தும், அவற்றை நீடிக்கச் செய்தும் வந்தவன்.">
-    I've run societies before — built them from scratch, grown membership, and made them last.
+    I've run societies before — collaborated, grown membership, and made them last.
   </p>
-
   <div class="exp-grid stagger reveal">
     <div class="exp-card">
       <div class="exp-role">Publicity Officer</div>
@@ -1204,25 +829,25 @@
       <div class="exp-org">Cambridge Telugu Society</div>
       <div class="exp-detail lang"
            data-en="Financial oversight and budgeting for a growing cultural society — directly relevant to handling payments, sponsorships, and keeping accounts transparent."
-           data-ta="வளர்ந்து வரும் ஒரு cultural society-க்கான நிதி மேலாண்மை மற்றும் budget-களை கையாள்ந்த அனுபவம் — payments, sponsorships, மற்றும் transparent accounts-க்கு நேரடியாகப் பொருந்துகிறது.">
+           data-ta="வளர்ந்து வரும் ஒரு cultural society-க்கான நிதி மேலாண்மை மற்றும் budget-களை கையாள்ந்த அனுபவம்.">
         Financial oversight and budgeting for a growing cultural society — directly relevant to handling payments, sponsorships, and keeping accounts transparent.
       </div>
     </div>
     <div class="exp-card">
-      <div class="exp-role">Former President & Social Media Officer</div>
+      <div class="exp-role">Former President &amp; Social Media Officer</div>
       <div class="exp-org">HRSFC South Asian Society</div>
       <div class="exp-detail lang"
            data-en="Grew the society to 150+ registered members — the biggest cultural society at the time — with the highest event turnout and retention rate of any committee in the institution's history."
-           data-ta="150+ உறுப்பினர்களாக society-ஐ வளர்த்தேன் — அக்காலத்தில் மிகப் பெரிய cultural society — மேலும் அந்த நிறுவன வரலாற்றிலேயே மிக உயர்ந்த event turnout மற்றும் retention rate-ஐ பெற்றோம்.">
+           data-ta="150+ உறுப்பினர்களாக society-ஐ வளர்த்தேன் — அக்காலத்தில் மிகப் பெரிய cultural society — மிக உயர்ந்த event turnout மற்றும் retention rate.">
         Grew the society to 150+ registered members — the biggest cultural society at the time — with the highest event turnout and retention rate of any committee in the institution's history.
       </div>
     </div>
     <div class="exp-card">
-      <div class="exp-role">Former Secretary & Publicity Officer</div>
-      <div class="exp-org">HRSFC Hindu, Sikh & Jain Society</div>
+      <div class="exp-role">Former Secretary &amp; Publicity Officer</div>
+      <div class="exp-org">HRSFC Hindu, Sikh &amp; Jain Society</div>
       <div class="exp-detail lang"
            data-en="Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division — navigating formal affiliation and institutional partnership processes."
-           data-ta="NHSF Schools Division-இல் சேரும் முதல் sixth form ஆக society-ஐ முன்னெடுத்து சென்றேன் — formal affiliation மற்றும் institutional partnership செயல்முறைகளை வழிநடத்தி.">
+           data-ta="NHSF Schools Division-இல் சேரும் முதல் sixth form ஆக society-ஐ முன்னெடுத்து சென்றேன்.">
         Led the society to become the first sixth form to join the National Hindu Students Forum (NHSF) Schools Division — navigating formal affiliation and institutional partnership processes.
       </div>
     </div>
@@ -1231,17 +856,28 @@
       <div class="exp-org">Old Buckenham High School</div>
       <div class="exp-detail lang"
            data-en="Elected to represent the student body — early foundation in leadership, organisation, and pastoral responsibility."
-           data-ta="மாணவர் கூட்டத்தை பிரதிநிதித்துவப்படுத்தத் தேர்ந்தெடுக்கப்பட்டேன் — leadership, organisation, மற்றும் pastoral responsibility-இல் ஆரம்ப அடித்தளம்.">
+           data-ta="மாணவர் கூட்டத்தை பிரதிநிதித்துவப்படுத்தத் தேர்ந்தெடுக்கப்பட்டேன்.">
         Elected to represent the student body — early foundation in leadership, organisation, and pastoral responsibility.
       </div>
     </div>
   </div>
 </section>
 
+<!-- VOTE -->
 <div class="vote-banner" id="vote">
   <div class="vote-ring"></div>
   <div class="vote-ring vote-ring-2"></div>
-  <div class="vote-big">VOTE<br>DIVYAN</div>
+
+  <a class="vote-big-link" href="https://vote.cusu.cam.ac.uk" target="_blank" rel="noopener" aria-label="Vote for Divyan">
+    <div class="vote-big">VOTE<br>DIVYAN</div>
+  </a>
+
+  <br>
+  <a class="vote-cta-btn" href="https://vote.cusu.cam.ac.uk" target="_blank" rel="noopener">
+    Cast Your Vote
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M7 0L5.59 1.41L10.17 6H0v2h10.17l-4.58 4.59L7 14l7-7-7-7z"/></svg>
+  </a>
+
   <div class="vote-meta lang"
        data-en="Cambridge University Tamil Society · Committee Elections 2026"
        data-ta="கேம்பிரிட்ஜ் தமிழ்ச் சங்கம் · குழுத் தேர்தல்கள் 2026">
@@ -1250,73 +886,65 @@
   <div class="signature-line">நன்றி · Thank you</div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-left">Divyan Ranjithakumar · For Secretary 2026</div>
+  <div class="footer-social">
+    <!-- INSTAGRAM — replace YOUR_INSTAGRAM_HANDLE with your actual handle -->
+    <a href="https://instagram.com/dvynrkmr" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <!-- LINKEDIN — replace YOUR_LINKEDIN_URL with your actual profile URL -->
+    <a href="https://linkedin.com/in/divyanranjithakumar" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+  </div>
   <div class="footer-right">Proposed by Pahalavan · Seconded by Lithikga</div>
 </footer>
 
 <script>
+  /* ——— LANG TOGGLE ——— */
   const langToggle = document.getElementById('langToggle');
   const langNodes = document.querySelectorAll('[data-en][data-ta]');
-
   function setLanguage(lang) {
     document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
     document.body.classList.toggle('lang-ta', lang === 'ta');
     document.body.classList.toggle('lang-en', lang !== 'ta');
-
-    langNodes.forEach((el) => {
-      const value = el.dataset[lang];
-      if (value !== undefined) el.textContent = value;
+    langNodes.forEach(el => {
+      const val = el.dataset[lang];
+      if (val !== undefined) el.textContent = val;
     });
-
     langToggle.setAttribute('aria-pressed', lang === 'ta' ? 'true' : 'false');
     localStorage.setItem('tsoc-lang', lang);
   }
-
   langToggle.addEventListener('click', () => {
-    const next = document.body.classList.contains('lang-ta') ? 'en' : 'ta';
-    setLanguage(next);
+    setLanguage(document.body.classList.contains('lang-ta') ? 'en' : 'ta');
   });
-
   setLanguage(localStorage.getItem('tsoc-lang') || 'en');
 
+  /* ——— CURSOR ——— */
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
-
   document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
+  (function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
+  })();
   document.querySelectorAll('a, button, .pillar-card, .exp-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      ring.style.width = '54px';
-      ring.style.height = '54px';
-      ring.style.borderColor = 'rgba(245,197,24,0.7)';
-    });
-    el.addEventListener('mouseleave', () => {
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-      ring.style.borderColor = 'rgba(245,197,24,0.5)';
-    });
+    el.addEventListener('mouseenter', () => { ring.style.width = '54px'; ring.style.height = '54px'; ring.style.borderColor = 'rgba(245,197,24,0.75)'; });
+    el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(245,197,24,0.5)'; });
   });
 
+  /* ——— NAV SCROLL ——— */
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
 
+  /* ——— LETTER ANIMATION ——— */
   document.querySelectorAll('.hero-name .word').forEach((word, wi) => {
-    const letters = word.dataset.word.split('');
-    letters.forEach((ch, i) => {
+    word.dataset.word.split('').forEach((ch, i) => {
       const s = document.createElement('span');
       s.textContent = ch;
       s.style.animationDelay = (0.2 + wi * 0.18 + i * 0.035) + 's';
@@ -1324,53 +952,39 @@
     });
   });
 
-  const items = [
-    'Professionalise TSoc',
-    'CPD & Careers',
-    'Alumni Network',
-    'Digital Payments',
-    'தமிழ் ஒற்றுமை',
-    'UK-Wide Collabs',
-    'Monthly Newsletter',
-    'மரபும் முன்னேற்றமும்',
-    'Sponsorship Strategy',
-    'சமூக வளர்ச்சி'
+  /* ——— MARQUEE (english only) ——— */
+  const marqueeItems = [
+    'Professionalise TSoc','CPD & Careers','Alumni Network',
+    'Digital Payments','Open to All','UK-Wide Collabs',
+    'Monthly Newsletter','Tamil Culture','Sponsorship Strategy','Committee Culture'
   ];
   const track = document.getElementById('marqueeTrack');
-  [...items, ...items].forEach(text => {
+  [...marqueeItems, ...marqueeItems].forEach(text => {
     const el = document.createElement('span');
     el.className = 'marquee-item';
     el.innerHTML = `<span class="marquee-dot"></span>${text}`;
     track.appendChild(el);
   });
 
+  /* ——— SCROLL REVEAL ——— */
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
 
+  /* ——— PILLAR STAGGER ——— */
   const cards = document.querySelectorAll('.pillar-card');
   cards.forEach((c, i) => {
-    c.style.opacity = '0';
-    c.style.transform = 'translateY(22px)';
+    c.style.opacity = '0'; c.style.transform = 'translateY(22px)';
     c.style.transition = `opacity 0.65s ${i * 0.12}s cubic-bezier(0.22,1,0.36,1), transform 0.65s ${i * 0.12}s cubic-bezier(0.22,1,0.36,1), background 0.3s`;
   });
   const pGrid = document.querySelector('.pillars-grid');
   const pObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        cards.forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
-        pObs.disconnect();
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { cards.forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; }); pObs.disconnect(); } });
   }, { threshold: 0.05 });
   if (pGrid) pObs.observe(pGrid);
 
+  /* ——— PARALLAX ORB ——— */
   const orb = document.querySelector('.hero-orb');
   window.addEventListener('scroll', () => {
     if (orb) orb.style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.15}px))`;
